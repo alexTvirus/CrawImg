@@ -62,8 +62,8 @@ public class CreateWebdriver {
                     ChromeOptions options = new ChromeOptions();
                     options.setBinary(binaryGoogle);
 //                    String str_proxy_linux = "--proxy-server=socks4://"+InetAddress.getLocalHost().getHostAddress()+":1080";
-                    String str_proxy_linux = "--proxy-server=socks4://127.0.0.1:1080";
-                    options.addArguments(str_proxy_linux);
+//                    String str_proxy_linux = "--proxy-server=socks4://127.0.0.1:1080";
+//                    options.addArguments(str_proxy_linux);
 
                     webDriver = new ChromeDriver(options);
                     break;
@@ -71,8 +71,9 @@ public class CreateWebdriver {
 
                     ChromeOptions optionswindow = new ChromeOptions();
 //                    String str_proxy_windows = "--proxy-server=socks4://"+InetAddress.getLocalHost().getHostAddress()+":1080";
-                    String str_proxy_windows = "--proxy-server=socks4://127.0.0.1:1080";
-                    optionswindow.addArguments(str_proxy_windows);
+//                    String str_proxy_windows = "--proxy-server=socks4://127.0.0.1:1080";
+//                    optionswindow.addArguments(str_proxy_windows);
+                    optionswindow.addArguments("--start-maximized");
                     try {
                         webDriver = new ChromeDriver(optionswindow);
                     } catch (Exception e) {

@@ -16,12 +16,12 @@ import Service.GetTextFromGit;
 import Service.PathDriver;
 import Service.ProxyWithSSH;
 import Service.SSHService;
-import Service.SendRequest;
 import Utils.Utils;
 import com.google.gson.Gson;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.web.client.RestTemplate;
+import restcontroller.TaskController;
 
 @Configuration
 @ComponentScans({
@@ -36,11 +36,6 @@ public class SpringConfig {
     @Bean
     public Gson gson() {
         return new Gson();
-    }
-
-    @Bean
-    public SendRequest sendRequest() {
-        return new SendRequest();
     }
 
     @Bean
@@ -66,11 +61,6 @@ public class SpringConfig {
     @Bean
     public GetTextFromGit getTextFromGit() {
         return new GetTextFromGit();
-    }
-
-    @Bean
-    public CheckCapcha checkCapcha() {
-        return new CheckCapcha();
     }
 
     @Bean

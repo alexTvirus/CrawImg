@@ -11,73 +11,70 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.0.3/sockjs.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lbcong/SaveFileTemp/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lbcong/SaveFileTemp/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lbcong/SaveFileTemp/css/_all-skins.min.css">
     </head>
     <body onload="disconnect()">
         <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
             Javascript and reload this page!</h2></noscript>
-        <h1>Hello World!</h1>
-        <s:url value="startProxy" var="startProxy"/>
-        <s:url value="stopProxy" var="stopProxy"/>
-        <s:url value="startAuto" var="startAuto"/>
-        <p id="status_proxy"></p>
-        <div>
-            <input id="start_proxy" type="button" value="start_proxy" />
-        </div>
-        <div>
-            <div>
-                <button id="connect" onclick="connect();">Connect</button>
-                <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
-            </div>
-            <div id="conversationDiv">
-                <p id="response"></p>
-            </div>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <input id="stop_proxy" type="button" value="stop_proxy" />
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <input id="start_auto" type="button" value="start_auto" />
-        <div>
-            <p id="status_auto"></p>
-        </div>
-        <div>
-            <p>img capcha</p>
-            <img id="img_capcha" alt="Red dot" />
-        </div> 
-        <div>
-            <textarea style="height: 300px;width: 400px" id="error"></textarea>
-        </div>
-        <script type="text/javascript">
-            var stompClient = null;
+            <s:url value="startAuto" var="startAuto"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Nhập url</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <!--<form role="form">-->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="url">URL</label>
+                                <input type="text" class="form-control" id="url" placeholder="Url">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
 
-            function setConnected(connected) {
-                document.getElementById('connect').disabled = connected;
-                document.getElementById('disconnect').disabled = !connected;
-                document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
-                document.getElementById('response').innerHTML = '';
+                        <div class="box-footer">
+                            <button id="start_auto" type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+            <div id="loader" class="loader"></div>
+        </div>
+
+        <div id="img_list">
+
+        </div> 
+        <style>
+            .loader {
+                border: 16px solid #f3f3f3; /* Light grey */
+                border-top: 16px solid #3498db; /* Blue */
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 2s linear infinite;
+                display: none;
             }
 
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+        <script type="text/javascript">
+            var stompClient = null;
             function connect() {
                 var url = (window.location.protocol === "https:" ? "https:" : "http:") + "//" + window.location.host + window.location.pathname;
                 var socket = new SockJS(url + '/hello');
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function (frame) {
-                    setConnected(true);
                     console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/greetings', function (greeting) {
-                        showGreeting(greeting.body);
-                    });
-                    stompClient.subscribe('/auto/greetings', function (greeting) {
-                        displayAutoStatus(greeting.body);
-                    });
-                    stompClient.subscribe('/error/greetings', function (greeting) {
-                        displayError(greeting.body);
-                    });
                     stompClient.subscribe('/auto/getImg', function (greeting) {
                         displayImg(greeting.body);
                     });
@@ -88,36 +85,14 @@
                 if (stompClient != null) {
                     stompClient.disconnect();
                 }
-                setConnected(false);
                 console.log("Disconnected");
             }
-
-            function showGreeting(message) {
-                var response = document.getElementById('response');
-                response.innerHTML = message;
-            }
-
-            function startProxy(input) {
+            function startAuto(input, url) {
                 $.ajax({
                     type: "GET",
                     url: input,
                     timeout: 100000,
-                    success: function (data) {
-                        console.log("SUCCESS: ", data);
-                        displayProxyStatus(data);
-
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
-                        display(e);
-                    }
-                });
-            }
-            function stopProxy(input) {
-                $.ajax({
-                    type: "GET",
-                    url: input,
-                    timeout: 100000,
+                    data: "url=" + url,
                     success: function (data) {
                         console.log("SUCCESS: ", data);
                     },
@@ -127,52 +102,23 @@
                     }
                 });
             }
-            function startAuto(input) {
-                $.ajax({
-                    type: "GET",
-                    url: input,
-                    timeout: 100000,
-                    success: function (data) {
-                        console.log("SUCCESS: ", data);
-                        displayAutoStatus(data);
-
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
-                        display(e);
-                    }
-                });
-            }
-            $().ready(function () {
-                $('#status_proxy').css('display', 'none');
-                $('#img_capcha').css('display', 'none');
-            });
-            $().ready(function () {
-                $('#start_proxy').click(function () {
-                    startProxy("${startProxy}");
-                });
-            });
-            $().ready(function () {
-                $('#stop_proxy').click(function () {
-                    stopProxy("${stopProxy}");
-                });
-            });
             $().ready(function () {
                 $('#start_auto').click(function () {
-                    startAuto("${startAuto}");
+                    disconnect();
+                    var url = $('#url').val();
+                    $('#img_list').html("");
+                    $('#loader').css('display', 'block');
+                    startAuto("${startAuto}", url);
+                    connect();
                 });
             });
-            function displayProxyStatus(data) {
-                $('#status_proxy').text(data);
-                $('#status_proxy').css('display', 'block');
-            }
-            function displayAutoStatus(data) {
-                $('#status_auto').text(data);
-                $('#status_auto').css('display', 'block');
-            }
             function displayImg(data) {
-                $('#img_capcha').attr('src',"data:image/png;base64, "+data);
-                $('#img_capcha').css('display', 'block');
+                if (data !== 'done') {
+                    var string_img = "<img  src='" + data + "'/>";
+                    $('#img_list').append(string_img);
+                }else{
+                    $('#loader').css('display', 'none');
+                }
             }
             function displayError(data) {
                 var psconsole = $('#error');

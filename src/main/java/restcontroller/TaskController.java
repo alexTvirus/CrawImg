@@ -28,16 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TaskController {
 
     @Autowired
-    ProxyWithSSH proxyWithSSH;
-    @Autowired
-    Codenvy codenvy;
-
-    @RequestMapping(value = "/sendTextCapcha", method = RequestMethod.GET)
-    public String sendTextCapcha() {
-        return "formSendCapcha";
-    }
-
-    @Autowired
     private SimpMessagingTemplate template;
 
     @MessageMapping("/hello")
@@ -47,51 +37,18 @@ public class TaskController {
         return string;
     }
 
-    @Scheduled(fixedRate = 2000)
     public void greeting() throws InterruptedException {
-        this.template.convertAndSend("/topic/greetings", "trang thai proxy: " + proxyWithSSH.status_proxy + " ip: " + proxyWithSSH.getHost() + " user " + proxyWithSSH.getUser());
     }
 
-    @Scheduled(fixedRate = 3000)
     public void looperAuto() throws InterruptedException {
-        this.template.convertAndSend("/auto/greetings", "tong acc can tao: " + codenvy.getNumber_acc_must_create() + " tong acc da tao: " + codenvy.getNumber_acc_created() + " tong acc tao fail: " + codenvy.getNumber_acc_fail());
     }
     
-    @Scheduled(fixedRate = 3000)
-    public void looperAutoImg() throws InterruptedException {
-         this.template.convertAndSend("/auto/getImg",codenvy.Img64base);
+    public void getImg(String url) throws InterruptedException {
+         this.template.convertAndSend("/auto/getImg",url);
     }
     
     public void reportError(String str) throws InterruptedException {
         this.template.convertAndSend("/error/greetings", str);
     }
 
-    // lien tuc kiem tra se ket noi den ssh co con ket noi ko
-//    @Scheduled(fixedRate = 10000)
-    public void tracerProxy() throws InterruptedException {
-        if ((proxyWithSSH.getKeyOfProcessUsing().equals("") || proxyWithSSH.getKeyOfProcessUsing().equals(Constant.Key_Tracer))
-                && (proxyWithSSH.ss != null)) {
-            proxyWithSSH.setKeyOfProcessUsing(Constant.Key_Tracer);
-            int time_limit = 0;
-            int change_limit = 0;
-            while (!Constant.Actived.equals(proxyWithSSH.status_proxy)) {
-                if (time_limit == Constant.Time_Limit_Waiting_Change_Ssh) {
-                    if (change_limit < proxyWithSSH.listInfo.size()) {
-                        proxyWithSSH.changeIp();
-                        change_limit++;
-                        time_limit = 0;
-                    } else {
-                        proxyWithSSH.setKeyOfProcessUsing("");
-                        System.out.println("Ket noi mang loi hay kiem tra lai ssh hoac proxy");
-                        System.exit(0);
-                        break;
-                    }
-                } else {
-                    time_limit++;
-                }
-            }
-            proxyWithSSH.setKeyOfProcessUsing("");
-        }
-
-    }
 }
