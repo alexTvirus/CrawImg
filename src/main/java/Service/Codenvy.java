@@ -70,6 +70,7 @@ public class Codenvy {
 
             Actions action = new Actions(webDriver);
             listelements = new ArrayList<>();
+
             js.executeScript("document.body.style.zoom = '0.3'");
             listelements = webDriver.findElements(By.xpath("//div[@class='box-image']/div/a/img"));
             if (listelements != null && listelements.size() > 1) {
@@ -77,6 +78,7 @@ public class Codenvy {
 //                        String array[] = item.getAttribute("data-lazy-srcset").split("250w", 2);
 //                        taskController.getImg(array[0]);
                     taskController.getImg(item.getAttribute("data-lazy-src"));
+
                 }
             }
             taskController.getImg("done");
@@ -90,6 +92,7 @@ public class Codenvy {
                 webDriver.quit();
             } else {
                 taskController.reportError("exception");
+
                 webDriver.quit();
             }
 

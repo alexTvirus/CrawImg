@@ -78,9 +78,12 @@
                     stompClient.subscribe('/auto/getImg', function (greeting) {
                         displayImg(greeting.body);
                     });
+<<<<<<< HEAD
                     stompClient.subscribe('/error/greetings', function (greeting) {
                         displayError(greeting.body);
                     });
+=======
+>>>>>>> 8812189adc446f79841a89258f6c9acfcba58b55
                 });
             }
 

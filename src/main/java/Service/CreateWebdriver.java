@@ -67,6 +67,7 @@ public class CreateWebdriver {
                     options.addArguments("disable-infobars");
                     options.addArguments("--start-maximized");
                     options.addArguments("--headless");
+
                     webDriver = new ChromeDriver(options);
                     break;
                 case "Windows":
@@ -78,6 +79,7 @@ public class CreateWebdriver {
                     optionswindow.addArguments("disable-infobars");
                     optionswindow.addArguments("--start-maximized");
                     optionswindow.addArguments("--headless");
+
                     try {
                         webDriver = new ChromeDriver(optionswindow);
                     } catch (Exception e) {
