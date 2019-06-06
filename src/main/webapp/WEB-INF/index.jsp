@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lbcong/SaveFileTemp/css/AdminLTE.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lbcong/SaveFileTemp/css/_all-skins.min.css">
     </head>
-    <body onload="disconnect()">
+    <body>
         <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
             Javascript and reload this page!</h2></noscript>
             <s:url value="startAuto" var="startAuto"/>
@@ -78,12 +78,10 @@
                     stompClient.subscribe('/auto/getImg', function (greeting) {
                         displayImg(greeting.body);
                     });
-<<<<<<< HEAD
                     stompClient.subscribe('/error/greetings', function (greeting) {
                         displayError(greeting.body);
                     });
-=======
->>>>>>> 8812189adc446f79841a89258f6c9acfcba58b55
+
                 });
             }
 
