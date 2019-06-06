@@ -39,6 +39,31 @@ public class Utils {
         }
     }
 
+    public boolean hasClass(WebElement element, String htmlClass) {
+        String[] classes = element.getAttribute("class").split("\\s+");
+        if (classes != null) {
+            for (String classAttr : classes) {
+                if (classAttr.equals(htmlClass)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isAttribtuePresent(WebElement element, String attribute) {
+        Boolean result = false;
+        try {
+            String value = element.getAttribute(attribute);
+            if (value != null) {
+                result = true;
+            }
+        } catch (Exception e) {
+        }
+
+        return result;
+    }
+
     public boolean waitForPresent(WebDriver driver, int timeLimitInSeconds, String targetXpath) throws InterruptedException {
         if (isBrowserClosed(driver)) {
             driver.quit();

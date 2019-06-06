@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -36,17 +37,14 @@ public class MainController {
     
     @RequestMapping(value = "/startAuto", method = RequestMethod.GET,headers = "Connection!=Upgrade")
     public @ResponseBody
-    String startAuto() {
+    String startAuto( @RequestParam String url) {
         try {
-            if (VariableSession.flag_status_is_first_run_app) {
-                webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
-                VariableSession.flag_status_is_first_run_app = false;
-            }
             Thread startThread = new Thread() {
                 @Override
                 public void run() {
                     try {
-                        codenvy.Start(webDriver);
+                        webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+                        codenvy.Start(webDriver,url);
                     } catch (Exception e) {
                         e.getMessage();
                     }
