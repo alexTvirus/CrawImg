@@ -53,8 +53,8 @@ public class Codenvy {
             webDriver.get(url);
             counter = 0;
             while (counter < 25) {
-                if (utils.waitForPresent(webDriver, 100, "//img[@width='150']")) {
-                    if (utils.waitForPresence(webDriver, 100, "//img[@width='150']")) {
+                if (utils.waitForPresent(webDriver, 100, "//img")) {
+                    if (utils.waitForPresence(webDriver, 100, "//img")) {
                         break;
                     }
                 }
@@ -67,20 +67,25 @@ public class Codenvy {
             }
 
             List<WebElement> listelements = null;
-
-            Actions action = new Actions(webDriver);
             listelements = new ArrayList<>();
-
-            js.executeScript("document.body.style.zoom = '0.3'");
-            listelements = webDriver.findElements(By.xpath("//div[@class='box-image']/div/a/img"));
+            js.executeScript("document.body.style.zoom = '0.25'");
+            Thread.sleep(300);
+            listelements = webDriver.findElements(By.xpath("//img"));
             if (listelements != null && listelements.size() > 1) {
                 for (WebElement item : listelements) {
-//                        String array[] = item.getAttribute("data-lazy-srcset").split("250w", 2);
-//                        taskController.getImg(array[0]);
-                    taskController.getImg(item.getAttribute("data-lazy-src"));
-
+                    if (utils.isAttribtuePresent(item, "src")) {
+                        taskController.getImg(item.getAttribute("src"));
+                    }
                 }
             }
+
+//            listelements = webDriver.findElements(By.xpath("//div[@class='box-image']/div/a/img"));
+//            if (listelements != null && listelements.size() > 1) {
+//                for (WebElement item : listelements) {
+//                    taskController.getImg(item.getAttribute("data-lazy-src"));
+//
+//                }
+//            }
             taskController.getImg("done");
             webDriver.quit();
         } catch (Exception e) {
