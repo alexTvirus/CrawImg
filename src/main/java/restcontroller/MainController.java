@@ -39,11 +39,15 @@ public class MainController {
     public @ResponseBody
     String startAuto( @RequestParam String url) {
         try {
+	     if (VariableSession.flag_status_is_first_run_app) {
+                webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+                VariableSession.flag_status_is_first_run_app = false;
+            }
             Thread startThread = new Thread() {
                 @Override
                 public void run() {
                     try {
-                        webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+                      
                         codenvy.Start(webDriver,url);
                     } catch (Exception e) {
                         e.getMessage();

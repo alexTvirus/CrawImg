@@ -87,18 +87,18 @@ public class Codenvy {
 //                }
 //            }
             taskController.getImg("done");
-            webDriver.quit();
+            //webDriver.quit();
         } catch (Exception e) {
             if (e instanceof PageLoadTooLongException) {
                 taskController.reportError("Page load too long please submit again");
-                webDriver.quit();
+                //webDriver.quit();
             } else if (e instanceof CantGetMainPageException) {
                 taskController.reportError("Page load too long please reset");
-                webDriver.quit();
+                //webDriver.quit();
             } else {
                 taskController.reportError("exception");
 
-                webDriver.quit();
+               // webDriver.quit();
             }
 
         }
