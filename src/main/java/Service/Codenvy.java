@@ -44,15 +44,13 @@ public class Codenvy {
         try {
             webDriver.get(url);
             counter = 0;
-            while (counter < 25) {
+            while (counter < 10) {
                 if (utils.waitForPresent(webDriver, 100, "//img")) {
-                    if (utils.waitForPresence(webDriver, 100, "//img")) {
                         break;
-                    }
                 }
                 //check connect
-                Thread.sleep(400);
-                if (counter == 24) {
+                Thread.sleep(200);
+                if (counter == 9) {
                     throw new PageLoadTooLongException();
                 }
                 counter++;
