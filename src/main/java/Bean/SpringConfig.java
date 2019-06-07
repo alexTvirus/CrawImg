@@ -5,17 +5,11 @@
  */
 package Bean;
 
-import Entity.SshInfo;
-import Service.CheckCapcha;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import Service.Codenvy;
 import Service.CreateWebdriver;
-import Service.DowloadService;
-import Service.GetTextFromGit;
 import Service.PathDriver;
-import Service.ProxyWithSSH;
-import Service.SSHService;
 import Utils.Utils;
 import com.google.gson.Gson;
 import org.springframework.context.annotation.ComponentScan;
@@ -43,31 +37,8 @@ public class SpringConfig {
         return new RestTemplate();
     }
 
-    @Bean
-    public ProxyWithSSH proxyWithSSH() {
-        return new ProxyWithSSH();
-    }
 
-    @Bean
-    public SSHService sSHService() {
-        return new SSHService();
-    }
-
-    @Bean
-    public SshInfo sshInfo() {
-        return new SshInfo();
-    }
-
-    @Bean
-    public GetTextFromGit getTextFromGit() {
-        return new GetTextFromGit();
-    }
-
-    @Bean
-    public DowloadService dowloadService() {
-        return new DowloadService();
-    }
-
+ 
     @Bean
     public Codenvy codenvy() {
         return new Codenvy();

@@ -51,6 +51,9 @@
         <div id="img_list">
 
         </div> 
+         <div>
+            <textarea style="height: 300px;width: 400px" id="error"></textarea>
+        </div>
         <style>
             .loader {
                 border: 16px solid #f3f3f3; /* Light grey */
@@ -107,7 +110,9 @@
                 });
             }
             $().ready(function () {
+                $('#error').css('display', 'none');
                 $('#start_auto').click(function () {
+                    $('#error').css('display', 'none');
                     disconnect();
                     var url = $('#url').val();
                     $('#img_list').html("");
@@ -126,6 +131,7 @@
             }
             function displayError(data) {
                 var psconsole = $('#error');
+                $('#error').css('display', 'block');
                 psconsole.append("\n" + data);
                 if (psconsole.length)
                     psconsole.scrollTop(psconsole[0].scrollHeight - psconsole.height());

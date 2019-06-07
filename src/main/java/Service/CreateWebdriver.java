@@ -78,7 +78,7 @@ public class CreateWebdriver {
 //                    optionswindow.addArguments(str_proxy_windows);
                     optionswindow.addArguments("disable-infobars");
                     optionswindow.addArguments("--start-maximized");
-                    optionswindow.addArguments("--headless");
+//                    optionswindow.addArguments("--headless");
 
                     try {
                         webDriver = new ChromeDriver(optionswindow);

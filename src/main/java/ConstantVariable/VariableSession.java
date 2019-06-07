@@ -5,11 +5,6 @@
  */
 package ConstantVariable;
 
-import Entity.SshInfo;
-import Service.SSHService;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class VariableSession {
 
