@@ -50,9 +50,9 @@ public class Codenvy {
                 }
                 //check connect
                 Thread.sleep(200);
-                if (counter == 9) {
-                    throw new PageLoadTooLongException();
-                }
+                //if (counter == 9) {
+                //    throw new PageLoadTooLongException();
+                //}
                 counter++;
             }
 
