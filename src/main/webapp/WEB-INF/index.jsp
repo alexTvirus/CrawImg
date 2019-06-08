@@ -51,6 +51,7 @@
         <div id="img_list">
 
         </div> 
+        <img id="screen_shot"/>
          <div>
             <textarea style="height: 300px;width: 400px" id="error"></textarea>
         </div>
@@ -84,7 +85,9 @@
                     stompClient.subscribe('/error/greetings', function (greeting) {
                         displayError(greeting.body);
                     });
-
+                    stompClient.subscribe('/auto/getScreenShot', function (greeting) {
+                        displayScreenShot(greeting.body);
+                    });
                 });
             }
 
@@ -111,6 +114,8 @@
             }
             $().ready(function () {
                 $('#error').css('display', 'none');
+                $('#screen_shot').css('display', 'none');
+
                 $('#start_auto').click(function () {
                     $('#error').css('display', 'none');
                     disconnect();
@@ -125,6 +130,14 @@
                 if (data !== 'done') {
                     var string_img = "<img  src='" + data + "'/>";
                     $('#img_list').append(string_img);
+                }else{
+                    $('#loader').css('display', 'none');
+                }
+            }
+            function displayScreenShot(data) {
+                if (data !== 'done') {
+                    $('#screen_shot').attr('src',"data:image/png;base64, "+data);
+                    $('#screen_shot').css('display', 'block');
                 }else{
                     $('#loader').css('display', 'none');
                 }

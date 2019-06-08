@@ -17,7 +17,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import restcontroller.MainController;
@@ -33,7 +32,8 @@ public class Codenvy {
     @Autowired
     Utils utils;
     public WebDriver webDrivers;
-
+    @Autowired
+    DowloadService dowloadService;
     public String Start(WebDriver webDriver, String url) throws InterruptedException {
         this.webDrivers = webDriver;
         boolean flag_wait = false;
@@ -58,7 +58,8 @@ public class Codenvy {
 
             List<WebElement> listelements = null;
             listelements = new ArrayList<>();
-            js.executeScript("document.body.style.zoom = '0.25'");
+            js.executeScript("document.body.style.zoom = '0.15'");
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(300);
             listelements = webDriver.findElements(By.xpath("//img"));
             if (listelements != null && listelements.size() > 1) {

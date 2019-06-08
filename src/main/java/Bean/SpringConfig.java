@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import Service.Codenvy;
 import Service.CreateWebdriver;
+import Service.DowloadService;
 import Service.PathDriver;
 import Utils.Utils;
 import com.google.gson.Gson;
@@ -37,7 +38,10 @@ public class SpringConfig {
         return new RestTemplate();
     }
 
-
+    @Bean
+    public DowloadService dowloadService() {
+        return new DowloadService();
+    }
  
     @Bean
     public Codenvy codenvy() {

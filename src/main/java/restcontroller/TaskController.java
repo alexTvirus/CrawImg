@@ -32,6 +32,10 @@ public class TaskController {
     public void getImg(String url) throws InterruptedException {
          this.template.convertAndSend("/auto/getImg",url);
     }
+
+    public void getScreenShot(String url) throws InterruptedException {
+         this.template.convertAndSend("/auto/getScreenShot",url);
+    }
     
     public void reportError(String str) throws InterruptedException {
         this.template.convertAndSend("/error/greetings", str);
