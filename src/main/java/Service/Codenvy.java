@@ -111,32 +111,14 @@ public class Codenvy {
             Thread.sleep(600);
 
             System.out.println("c333");
-            counter = 0;
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
-            while (counter < 25) {
-                Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 1000, "//form[@action='/signin/challenge/kpp/5']//button[@type='submit']")) {
-                    element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']//button[@type='submit']"));
-                    element.click();
-                    Thread.sleep(600);
 
-                    element = webDriver.findElement(By.xpath("//input[@name='phoneNumber' and @type='tel']"));
-                    element.sendKeys(phone);
-                    Thread.sleep(600);
-
-                    element = webDriver.findElement(By.xpath("//input[@type='submit']"));
-                    element.click();
-                    Thread.sleep(600);
-                    break;
-                }
-                counter++;
-            }
             counter = 0;
             Thread.sleep(400);
             while (counter < 25) {
 
                 Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 1000, "//button[@type='submit']")) {
+                if (utils.waitForPresence(webDriver, 1000, "//input[@type='submit']")) {
                     element = webDriver.findElement(By.xpath("//button[@type='submit']"));
                     element.click();
                     Thread.sleep(600);
@@ -155,8 +137,8 @@ public class Codenvy {
                 }
                 counter++;
             }
-
             Thread.sleep(60000);
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
         } catch (Exception ex) {
             taskController.reportError("exception" + ex.getMessage());
