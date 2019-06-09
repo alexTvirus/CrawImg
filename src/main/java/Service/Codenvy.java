@@ -42,7 +42,7 @@ public class Codenvy {
         WebElement element = null;
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
-            webDriver.get(url);
+//            webDriver.get(url);
 
             //js.executeScript("document.body.style.zoom = '0.15'");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));

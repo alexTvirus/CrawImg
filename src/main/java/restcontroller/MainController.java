@@ -33,7 +33,7 @@ public class MainController {
 
     @RequestMapping(value = "/startAuto", method = RequestMethod.GET, headers = "Connection!=Upgrade")
     public @ResponseBody
-    String startAuto(@RequestParam String url) {
+    String startAuto() {
         try {
             if (VariableSession.flag_status_is_first_run_app) {
                 webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
