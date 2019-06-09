@@ -19,6 +19,7 @@
         <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
             Javascript and reload this page!</h2></noscript>
             <s:url value="getImg" var="getImg"/>
+            <s:url value="startAuto" var="startAuto"/>
             <s:url value="KeepGoogleLive" var="KeepGoogleLive"/>
         <div class="container">
             <div class="row">
@@ -78,8 +79,8 @@
                     </div>
                 </div>
             </div>
+            <input type="button" id="Start_Proxy" value="Start proxy"/>
             <div id="loader" class="loader"></div>
-            <input id="Keep_live" type="button" value="Keep live"/>
         </div>
 
         <div id="img_list">
@@ -146,6 +147,21 @@
                     }
                 });
             }
+            function startProxy(input) {
+                $.ajax({
+                    type: "GET",
+                    url: input,
+                    timeout: 100000,
+                    data: "",
+                    success: function (data) {
+                        console.log("SUCCESS: ", data);
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                        display(e);
+                    }
+                });
+            }
 
             function startKeepAlive(input) {
                 var user = $('#user').val();
@@ -169,7 +185,9 @@
             $().ready(function () {
                 $('#error').css('display', 'none');
                 $('#screen_shot').css('display', 'none');
-
+                $('#Start_Proxy').click(function (){
+                    startProxy("${startAuto}");
+                });
                 $('#start_auto').click(function () {
                     $('#error').css('display', 'none');
                     disconnect();
@@ -186,6 +204,7 @@
                     var url = $('#url').val();
                     $('#img_list').html("");
                     $('#loader').css('display', 'block');
+                    
                     startKeepAlive("${KeepGoogleLive}");
                     connect();
                 });

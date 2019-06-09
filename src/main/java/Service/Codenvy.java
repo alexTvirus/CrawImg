@@ -9,6 +9,7 @@ import ConstantVariable.Constant;
 import Exception.PageLoadTooLongException;
 
 import Utils.Utils;
+import java.awt.Robot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import restcontroller.MainController;
@@ -72,43 +74,44 @@ public class Codenvy {
 //            webDriver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
 
             int counter = 0;
+            WebElement element = null;
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             System.out.println("c111");
             while (counter < 25) {
 
                 Thread.sleep(400);
                 if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @id='Email']")) {
+                    element = webDriver.findElement(By.xpath("//input[@type='email' and @id='Email']"));
+                    element.sendKeys(user);
+                    Thread.sleep(600);
+
+                    element = webDriver.findElement(By.xpath("//input[@id='next']"));
+                    element.click();
+                    Thread.sleep(600);
                     break;
                 }
                 counter++;
 
             }
-
-            WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @id='Email']"));
-            element.sendKeys(user);
-            Thread.sleep(600);
-
-            element = webDriver.findElement(By.xpath("//input[@id='next']"));
-            element.click();
-            Thread.sleep(600);
 
             System.out.println("c222");
             counter = 0;
             while (counter < 25) {
                 Thread.sleep(400);
                 if (utils.waitForPresence(webDriver, 5000, "//input[@id='Passwd']")) {
+                    taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+                    element = webDriver.findElement(By.xpath("//input[@id='Passwd']"));
+                    element.sendKeys(pass);
+                    Thread.sleep(600);
+
+                    element = webDriver.findElement(By.xpath("//input[@id='signIn']"));
+                    element.click();
+                    Thread.sleep(600);
+
                     break;
                 }
                 counter++;
             }
-            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
-            element = webDriver.findElement(By.xpath("//input[@id='Passwd']"));
-            element.sendKeys(pass);
-            Thread.sleep(600);
-
-            element = webDriver.findElement(By.xpath("//input[@id='signIn']"));
-            element.click();
-            Thread.sleep(600);
 
             System.out.println("c333");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
@@ -139,7 +142,15 @@ public class Codenvy {
             }
             Thread.sleep(60000);
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
-			taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+
+            Actions myAction1 = new Actions(webDriver);
+            myAction1.moveByOffset(914, 478).build().perform();
+            Thread.sleep(1000);
+            myAction1.click().build().perform();
+
+            utils.sendKeys(new Robot(), pass);
+            Thread.sleep(6000);
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
         } catch (Exception ex) {
             taskController.reportError("exception" + ex.getMessage());
             webDriver.quit();
