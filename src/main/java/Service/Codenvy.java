@@ -42,7 +42,7 @@ public class Codenvy {
         WebElement element = null;
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
-//            webDriver.get(url);
+            webDriver.get(url);
 
             //js.executeScript("document.body.style.zoom = '0.15'");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
@@ -138,8 +138,8 @@ public class Codenvy {
                 counter++;
             }
             Thread.sleep(60000);
-            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
+			taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
         } catch (Exception ex) {
             taskController.reportError("exception" + ex.getMessage());
             webDriver.quit();
