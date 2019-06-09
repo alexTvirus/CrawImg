@@ -9,6 +9,7 @@ import ConstantVariable.VariableSession;
 import ConstantVariable.Constant;
 import Service.Codenvy;
 import Service.CreateWebdriver;
+import Utils.ProxyWithSSH;
 import java.io.IOException;
 import java.net.URL;
 import org.openqa.selenium.WebDriver;
@@ -37,11 +38,24 @@ public class MainController {
             if (VariableSession.flag_status_is_first_run_app) {
                 webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
                 VariableSession.flag_status_is_first_run_app = false;
+                ProxyWithSSH proxyWithSSH = new ProxyWithSSH();
+                startProxy(proxyWithSSH);
             }
         } catch (Exception e) {
             e.getMessage();
         }
         return "running";
+    }
+
+    public static void startProxy(ProxyWithSSH proxyWithSSH) {
+        try {
+            URL Urlssh = MainController.class
+                    .getClassLoader().getResource("ssh.txt");
+            proxyWithSSH.setting(Urlssh.getPath(), 1080);
+            proxyWithSSH.start();
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
     @RequestMapping(value = "/getImg", method = RequestMethod.GET, headers = "Connection!=Upgrade")
