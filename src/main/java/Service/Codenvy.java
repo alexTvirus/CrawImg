@@ -85,7 +85,7 @@ public class Codenvy {
 
             }
 
-            WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @id='Email'']"));
+            WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @id='Email']"));
             element.sendKeys(user);
             Thread.sleep(600);
 
