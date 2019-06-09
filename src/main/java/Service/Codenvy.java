@@ -85,7 +85,7 @@ public class Codenvy {
             element.sendKeys(user);
             Thread.sleep(600);
 
-            element = webDriver.findElement(By.xpath("//input[@role='button' and @id='identifierNext']"));
+            element = webDriver.findElement(By.xpath("//div[@role='button' and @id='identifierNext']"));
             element.click();
             Thread.sleep(600);
 
@@ -102,7 +102,7 @@ public class Codenvy {
             element.sendKeys(pass);
             Thread.sleep(600);
 
-            element = webDriver.findElement(By.xpath("//input[@role='button' and @id='passwordNext']"));
+            element = webDriver.findElement(By.xpath("//div[@role='button' and @id='passwordNext']"));
             element.click();
             Thread.sleep(600);
 
@@ -111,21 +111,21 @@ public class Codenvy {
             while (counter < 25) {
                 Thread.sleep(400);
                 if (utils.waitForPresence(webDriver, 5000, "//form[@action='/signin/challenge/kpp/5']/button[@type='submit']")) {
+                    element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']/button[@type='submit']"));
+                    element.click();
+                    Thread.sleep(600);
+
+                    element = webDriver.findElement(By.xpath("//input[@name='phoneNumber' and @type='tel']"));
+                    element.sendKeys(phone);
+                    Thread.sleep(600);
+
+                    element = webDriver.findElement(By.xpath("//input[@type='submit']"));
+                    element.click();
+                    Thread.sleep(600);
                     break;
                 }
                 counter++;
             }
-            element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']/button[@type='submit']"));
-            element.click();
-            Thread.sleep(600);
-
-            element = webDriver.findElement(By.xpath("//input[@name='phoneNumber' and @type='tel']"));
-            element.sendKeys(phone);
-            Thread.sleep(600);
-
-            element = webDriver.findElement(By.xpath("//input[@type='submit']"));
-            element.click();
-            Thread.sleep(600);
 
             Thread.sleep(60000);
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
