@@ -101,6 +101,7 @@ public class Codenvy {
                 }
                 counter++;
             }
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             element = webDriver.findElement(By.xpath("//input[@id='Passwd']"));
             element.sendKeys(pass);
             Thread.sleep(600);
@@ -131,13 +132,15 @@ public class Codenvy {
                 counter++;
             }
             counter = 0;
+            Thread.sleep(400);
             while (counter < 25) {
+
                 Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 1000, "//form[@action='/signin/challenge/ipp/3']//button[@type='submit']")) {
-                    element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/ipp/3']//button[@type='submit']"));
+                if (utils.waitForPresence(webDriver, 1000, "//button[@type='submit']")) {
+                    element = webDriver.findElement(By.xpath("//button[@type='submit']"));
                     element.click();
                     Thread.sleep(600);
-
+                    taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
                     element = webDriver.findElement(By.xpath("//input[@id='idvPreregisteredPhonePin' and @type='tel']"));
                     while (!MainController.isDone) {
                         Thread.sleep(600);
@@ -149,7 +152,6 @@ public class Codenvy {
                     element = webDriver.findElement(By.xpath("//input[@type='submit']"));
                     element.click();
                     Thread.sleep(600);
-                    break;
                 }
                 counter++;
             }
