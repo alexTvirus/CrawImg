@@ -18,7 +18,7 @@
     <body>
         <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
             Javascript and reload this page!</h2></noscript>
-            <s:url value="startAuto" var="startAuto"/>
+            <s:url value="getImg" var="getImg"/>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -122,7 +122,7 @@
                     var url = $('#url').val();
                     $('#img_list').html("");
                     $('#loader').css('display', 'block');
-                    startAuto("${startAuto}", url);
+                    startAuto("${getImg}", url);
                     connect();
                 });
             });

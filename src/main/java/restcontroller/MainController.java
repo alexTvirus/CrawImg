@@ -26,23 +26,35 @@ public class MainController {
     CreateWebdriver createWebdriver;
     @Autowired
     Codenvy codenvy;
-    
+
     public static WebDriver webDriver = null;
     public static boolean isDone = false;
-    @RequestMapping(value = "/startAuto", method = RequestMethod.GET,headers = "Connection!=Upgrade")
+
+    @RequestMapping(value = "/startAuto", method = RequestMethod.GET, headers = "Connection!=Upgrade")
     public @ResponseBody
-    String startAuto( @RequestParam String url) {
+    String startAuto(@RequestParam String url) {
         try {
-	     if (VariableSession.flag_status_is_first_run_app) {
+            if (VariableSession.flag_status_is_first_run_app) {
                 webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
                 VariableSession.flag_status_is_first_run_app = false;
             }
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return "running";
+    }
+
+    @RequestMapping(value = "/getImg", method = RequestMethod.GET, headers = "Connection!=Upgrade")
+    public @ResponseBody
+    String getImg(@RequestParam String url) {
+        try {
+
             Thread startThread = new Thread() {
                 @Override
                 public void run() {
                     try {
-                      
-                        codenvy.Start(webDriver,url);
+
+                        codenvy.Start(webDriver, url);
                     } catch (Exception e) {
                         e.getMessage();
                     }
@@ -54,11 +66,11 @@ public class MainController {
         }
         return "running";
     }
-    
-    @RequestMapping(value = "/KeepGoogleLive", method = RequestMethod.GET,headers = "Connection!=Upgrade")
+
+    @RequestMapping(value = "/KeepGoogleLive", method = RequestMethod.GET, headers = "Connection!=Upgrade")
     public @ResponseBody
-    String KeepGoogleLive( 
-            @RequestParam String user ,
+    String KeepGoogleLive(
+            @RequestParam String user,
             @RequestParam String pass,
             @RequestParam String phone) {
         try {
@@ -66,7 +78,7 @@ public class MainController {
                 @Override
                 public void run() {
                     try {
-                        codenvy.KeepGoogleLive(webDriver,user,pass,phone);
+                        codenvy.KeepGoogleLive(webDriver, user, pass, phone);
                     } catch (Exception e) {
                         e.getMessage();
                     }
@@ -78,8 +90,8 @@ public class MainController {
         }
         return "running";
     }
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET,headers = "Connection!=Upgrade")
+
+    @RequestMapping(value = "/", method = RequestMethod.GET, headers = "Connection!=Upgrade")
     public String index() {
         return "index";
     }
