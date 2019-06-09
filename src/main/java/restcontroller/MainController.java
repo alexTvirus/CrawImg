@@ -30,6 +30,7 @@ public class MainController {
 
     public static WebDriver webDriver = null;
     public static boolean isDone = false;
+    public static String verifyCode = "";
 
     @RequestMapping(value = "/startAuto", method = RequestMethod.GET, headers = "Connection!=Upgrade")
     public @ResponseBody
@@ -103,6 +104,14 @@ public class MainController {
             e.getMessage();
         }
         return "running";
+    }
+
+    @RequestMapping(value = "/setVerifyCode", method = RequestMethod.GET, headers = "Connection!=Upgrade")
+    public String setVerifyCode(
+            @RequestParam String code) {
+        verifyCode = code;
+        isDone = true;
+        return "index";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, headers = "Connection!=Upgrade")

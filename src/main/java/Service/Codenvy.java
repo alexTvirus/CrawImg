@@ -71,9 +71,8 @@ public class Codenvy {
             webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
 //            webDriver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
 
-            
             int counter = 0;
-
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             System.out.println("c111");
             while (counter < 25) {
 
@@ -115,13 +114,36 @@ public class Codenvy {
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             while (counter < 25) {
                 Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 5000, "//form[@action='/signin/challenge/kpp/5']/button[@type='submit']")) {
-                    element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']/button[@type='submit']"));
+                if (utils.waitForPresence(webDriver, 1000, "//form[@action='/signin/challenge/kpp/5']//button[@type='submit']")) {
+                    element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']//button[@type='submit']"));
                     element.click();
                     Thread.sleep(600);
 
                     element = webDriver.findElement(By.xpath("//input[@name='phoneNumber' and @type='tel']"));
                     element.sendKeys(phone);
+                    Thread.sleep(600);
+
+                    element = webDriver.findElement(By.xpath("//input[@type='submit']"));
+                    element.click();
+                    Thread.sleep(600);
+                    break;
+                }
+                counter++;
+            }
+            counter = 0;
+            while (counter < 25) {
+                Thread.sleep(400);
+                if (utils.waitForPresence(webDriver, 1000, "//form[@action='/signin/challenge/ipp/3']//button[@type='submit']")) {
+                    element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/ipp/3']//button[@type='submit']"));
+                    element.click();
+                    Thread.sleep(600);
+
+                    element = webDriver.findElement(By.xpath("//input[@id='idvPreregisteredPhonePin' and @type='tel']"));
+                    while (!MainController.isDone) {
+                        Thread.sleep(600);
+                    }
+
+                    element.sendKeys(MainController.verifyCode);
                     Thread.sleep(600);
 
                     element = webDriver.findElement(By.xpath("//input[@type='submit']"));
