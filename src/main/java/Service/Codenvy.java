@@ -71,7 +71,7 @@ public class Codenvy {
             webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
 //            webDriver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
 
-            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+            
             int counter = 0;
 
             System.out.println("c111");
@@ -112,6 +112,7 @@ public class Codenvy {
 
             System.out.println("c333");
             counter = 0;
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             while (counter < 25) {
                 Thread.sleep(400);
                 if (utils.waitForPresence(webDriver, 5000, "//form[@action='/signin/challenge/kpp/5']/button[@type='submit']")) {
