@@ -34,49 +34,17 @@ public class Codenvy {
     public WebDriver webDrivers;
     @Autowired
     DowloadService dowloadService;
+
     public String Start(WebDriver webDriver, String url) throws InterruptedException {
         this.webDrivers = webDriver;
-        boolean flag_wait = false;
         WebElement element = null;
-        boolean flag_have = true;
-        int counter = 0;
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
-            webDriver.get(url);
-            counter = 0;
-            while (counter < 10) {
-                if (utils.waitForPresent(webDriver, 100, "//img")) {
-                        break;
-                }
-                //check connect
-                Thread.sleep(200);
-                //if (counter == 9) {
-                //    throw new PageLoadTooLongException();
-                //}
-                counter++;
-            }
-
-            List<WebElement> listelements = null;
-            listelements = new ArrayList<>();
-            js.executeScript("document.body.style.zoom = '0.15'");
+            //webDriver.get(url);
+            //js.executeScript("document.body.style.zoom = '0.15'");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(300);
-            listelements = webDriver.findElements(By.xpath("//img"));
-            if (listelements != null && listelements.size() > 1) {
-                for (WebElement item : listelements) {
-                    if (utils.isAttribtuePresent(item, "src")) {
-                        taskController.getImg(item.getAttribute("src"));
-                    }
-                }
-            }
 
-//            listelements = webDriver.findElements(By.xpath("//div[@class='box-image']/div/a/img"));
-//            if (listelements != null && listelements.size() > 1) {
-//                for (WebElement item : listelements) {
-//                    taskController.getImg(item.getAttribute("data-lazy-src"));
-//
-//                }
-//            }
             taskController.getImg("done");
             //webDriver.quit();
         } catch (Exception e) {
@@ -93,5 +61,40 @@ public class Codenvy {
         }
 
         return "complete";
+    }
+
+    public void KeepGoogleLive(WebDriver webDriver, String user, String pass, String phone) throws InterruptedException {
+        webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
+        WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @name='identifier']"));
+        element.sendKeys(user);
+        Thread.sleep(600);
+
+        element = webDriver.findElement(By.xpath("//input[@role='button' and @id='identifierNext']"));
+        element.click();
+        Thread.sleep(600);
+
+        element = webDriver.findElement(By.xpath("//input[@type='password' and @name='password']"));
+        element.sendKeys(pass);
+        Thread.sleep(600);
+
+        element = webDriver.findElement(By.xpath("//input[@role='button' and @id='passwordNext']"));
+        element.click();
+        Thread.sleep(600);
+
+        element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']/button[@type='submit']"));
+        element.click();
+        Thread.sleep(600);
+
+        element = webDriver.findElement(By.xpath("//input[@name='phoneNumber' and @type='tel']"));
+        element.sendKeys(phone);
+        Thread.sleep(600);
+
+        element = webDriver.findElement(By.xpath("//input[@type='submit']"));
+        element.click();
+        Thread.sleep(600);
+        
+        Thread.sleep(60000);
+        webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
+
     }
 }

@@ -28,7 +28,7 @@ public class MainController {
     Codenvy codenvy;
     
     public static WebDriver webDriver = null;
-    
+    public static boolean isDone = false;
     @RequestMapping(value = "/startAuto", method = RequestMethod.GET,headers = "Connection!=Upgrade")
     public @ResponseBody
     String startAuto( @RequestParam String url) {
@@ -54,6 +54,31 @@ public class MainController {
         }
         return "running";
     }
+    
+    @RequestMapping(value = "/KeepGoogleLive", method = RequestMethod.GET,headers = "Connection!=Upgrade")
+    public @ResponseBody
+    String KeepGoogleLive( 
+            @RequestParam String user ,
+            @RequestParam String pass,
+            @RequestParam String phone) {
+        try {
+            Thread startThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        codenvy.KeepGoogleLive(webDriver,user,pass,phone);
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            };
+            startThread.start();
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return "running";
+    }
+    
     @RequestMapping(value = "/", method = RequestMethod.GET,headers = "Connection!=Upgrade")
     public String index() {
         return "index";
