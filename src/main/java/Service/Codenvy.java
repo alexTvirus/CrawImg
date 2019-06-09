@@ -73,7 +73,7 @@ public class Codenvy {
 
             
             int counter = 0;
-
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             System.out.println("c111");
             while (counter < 25) {
 
@@ -102,6 +102,7 @@ public class Codenvy {
                 }
                 counter++;
             }
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             element = webDriver.findElement(By.xpath("//input[@id='Passwd']"));
             element.sendKeys(pass);
             Thread.sleep(600);
