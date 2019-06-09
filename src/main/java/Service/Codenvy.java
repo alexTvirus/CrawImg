@@ -41,6 +41,7 @@ public class Codenvy {
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
             //webDriver.get(url);
+
             //js.executeScript("document.body.style.zoom = '0.15'");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(300);
@@ -65,6 +66,16 @@ public class Codenvy {
 
     public void KeepGoogleLive(WebDriver webDriver, String user, String pass, String phone) throws InterruptedException {
         webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
+        int counter = 0;
+        System.out.println("c111");
+        while (counter < 25) {
+            Thread.sleep(400);
+            if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @name='identifier']")) {
+                break;
+            }
+            counter++;
+        }
+        
         WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @name='identifier']"));
         element.sendKeys(user);
         Thread.sleep(600);
@@ -73,6 +84,15 @@ public class Codenvy {
         element.click();
         Thread.sleep(600);
 
+        System.out.println("c222");
+        counter = 0;
+        while (counter < 25) {
+            Thread.sleep(400);
+            if (utils.waitForPresence(webDriver, 5000, "//input[@type='password' and @name='password']")) {
+                break;
+            }
+            counter++;
+        }
         element = webDriver.findElement(By.xpath("//input[@type='password' and @name='password']"));
         element.sendKeys(pass);
         Thread.sleep(600);
@@ -81,6 +101,15 @@ public class Codenvy {
         element.click();
         Thread.sleep(600);
 
+        System.out.println("c333");
+        counter = 0;
+        while (counter < 25) {
+            Thread.sleep(400);
+            if (utils.waitForPresence(webDriver, 5000, "//form[@action='/signin/challenge/kpp/5']/button[@type='submit']")) {
+                break;
+            }
+            counter++;
+        }
         element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']/button[@type='submit']"));
         element.click();
         Thread.sleep(600);
