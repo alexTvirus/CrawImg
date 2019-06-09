@@ -68,8 +68,8 @@ public class Codenvy {
 
     public void KeepGoogleLive(WebDriver webDriver, String user, String pass, String phone) throws InterruptedException {
         try {
-            webDriver.get
-        ("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
+            webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             int counter = 0;
             System.out.println("c111");
             while (counter < 25) {

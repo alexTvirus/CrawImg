@@ -19,6 +19,7 @@
         <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
             Javascript and reload this page!</h2></noscript>
             <s:url value="getImg" var="getImg"/>
+            <s:url value="KeepGoogleLive" var="KeepGoogleLive"/>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -47,12 +48,12 @@
             </div>
             <div id="loader" class="loader"></div>
         </div>
-
+        <button id="Keep_live" type="submit" class="btn btn-primary">Keep live</button>
         <div id="img_list">
 
         </div> 
         <img id="screen_shot"/>
-         <div>
+        <div>
             <textarea style="height: 300px;width: 400px" id="error"></textarea>
         </div>
         <style>
@@ -112,6 +113,23 @@
                     }
                 });
             }
+            
+            function startKeepAlive(input) {
+                $.ajax({
+                    type: "GET",
+                    url: input,
+                    timeout: 100000,
+                    data: "user=lisatthu35&pass=Hackvcoinpro1@&phone=0706145821",
+                    success: function (data) {
+                        console.log("SUCCESS: ", data);
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                        display(e);
+                    }
+                });
+            }
+            
             $().ready(function () {
                 $('#error').css('display', 'none');
                 $('#screen_shot').css('display', 'none');
@@ -125,20 +143,30 @@
                     startAuto("${getImg}", url);
                     connect();
                 });
+                
+                $('#Keep_live').click(function () {
+                    $('#error').css('display', 'none');
+                    disconnect();
+                    var url = $('#url').val();
+                    $('#img_list').html("");
+                    $('#loader').css('display', 'block');
+                    startKeepAlive("${KeepGoogleLive}");
+                    connect();
+                });
             });
             function displayImg(data) {
                 if (data !== 'done') {
                     var string_img = "<img  src='" + data + "'/>";
                     $('#img_list').append(string_img);
-                }else{
+                } else {
                     $('#loader').css('display', 'none');
                 }
             }
             function displayScreenShot(data) {
                 if (data !== 'done') {
-                    $('#screen_shot').attr('src',"data:image/png;base64, "+data);
+                    $('#screen_shot').attr('src', "data:image/png;base64, " + data);
                     $('#screen_shot').css('display', 'block');
-                }else{
+                } else {
                     $('#loader').css('display', 'none');
                 }
             }
