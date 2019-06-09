@@ -73,6 +73,8 @@ public class Codenvy {
 
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             int counter = 0;
+
+            webDriver.findElement(By.xpath("//form")).click();
             System.out.println("c111");
             while (counter < 25) {
 
@@ -84,7 +86,7 @@ public class Codenvy {
 
             }
 
-            WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @name='identifier']"));
+            WebElement element = webDriver.findElement(By.xpath("//input[@type='email'']"));
             element.sendKeys(user);
             Thread.sleep(600);
 
