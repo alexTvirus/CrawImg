@@ -120,7 +120,7 @@
                     type: "GET",
                     url: input,
                     timeout: 100000,
-                    data: "user=lisatthu35&pass=Hackvcoinpro1@&phone=0706145821",
+                    data: "user=lisatthu35&pass=HACKvcoinpro1@&phone=0706145821",
                     success: function (data) {
                         console.log("SUCCESS: ", data);
                     },
