@@ -81,9 +81,6 @@
                 </div>
             </div>
             <input type="button" id="Start_Proxy" value="Start proxy"/>
-            <input type="text" class="form-control" id="x" placeholder="url">
-            <input type="text" class="form-control" id="y" placeholder="url">
-            <input type="button" id="test" value="test"/>
             <div id="loader" class="loader"></div>
         </div>
 
@@ -152,23 +149,6 @@
                 });
             }
             
-            function test(input) {
-                var x = $('#x').val();
-                var y = $('#y').val();
-                $.ajax({
-                    type: "GET",
-                    url: input,
-                    timeout: 100000,
-                    data: "x=" + x +"&y="+y,
-                    success: function (data) {
-                        console.log("SUCCESS: ", data);
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
-                    }
-                });
-            }
-            
             function startProxy(input) {
                 $.ajax({
                     type: "GET",
@@ -210,12 +190,6 @@
                 
                 $('#Start_Proxy').click(function (){
                     startProxy("${startAuto}");
-                });
-                
-                $('#test').click(function (){
-                    disconnect();
-                    test("${testXY}");
-                    connect();
                 });
                 
                 $('#start_auto').click(function () {

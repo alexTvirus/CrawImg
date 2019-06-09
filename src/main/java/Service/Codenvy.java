@@ -18,8 +18,10 @@ import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -146,7 +148,15 @@ public class Codenvy {
             utils.sendKeys(new Robot(), "sudo passwd");
             Thread.sleep(6000);
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
-            
+            Actions myAction = null;
+            while (true) {
+                utils.sendKeys(new Robot(), "sudo passwd");
+                Thread.sleep(6000);
+                myAction = new Actions(webDriver);
+                myAction.sendKeys(Keys.ENTER).build().perform();
+                Thread.sleep(5000);
+            }
+
         } catch (Exception ex) {
             taskController.reportError("exception" + ex.getMessage());
             webDriver.quit();

@@ -124,36 +124,4 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "/testXY", method = RequestMethod.GET)
-    public String testX(
-            @RequestParam(value = "x", required = true) int x,
-            @RequestParam(value = "y", required = true) int y) {
-        try {
-            Thread startThread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Actions myAction1 = new Actions(webDriver);
-                        myAction1.moveByOffset(x, y).build().perform();
-                        Thread.sleep(5000);
-                        myAction1.click().build().perform();
-
-                        Thread.sleep(3000);
-                        utils.sendKeys(new Robot(), "ehwfjwejfjwef");
-                        Thread.sleep(7000);
-                        taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
-                    } catch (Exception e) {
-                        e.getMessage();
-                    }
-                }
-            };
-            startThread.start();
-
-        } catch (Exception e) {
-            return "loi : " + e.getMessage();
-        }
-        return "running";
-    }
-
-    
 }
