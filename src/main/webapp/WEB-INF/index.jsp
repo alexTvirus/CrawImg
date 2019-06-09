@@ -26,18 +26,50 @@
                     <!-- general form elements -->
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Nhập url</h3>
+                            <h3 class="box-title">Nhập</h3>
                         </div>
-                        <!-- /.box-header -->
-                        <!-- form start -->
-                        <!--<form role="form">-->
+
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="url">URL</label>
-                                <input type="text" class="form-control" id="url" placeholder="Url">
+                                <label for="user">user</label>
+                                <input type="text" class="form-control" id="user" placeholder="user">
                             </div>
                         </div>
-                        <!-- /.box-body -->
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="pass">pass</label>
+                                <input type="text" class="form-control" id="pass" placeholder="pass">
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="phone">phone</label>
+                                <input type="text" class="form-control" id="phone" placeholder="phone">
+                            </div>
+                        </div>
+
+                        <div class="box-footer">
+                            <button id="Keep_live" type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Get img</h3>
+                        </div>
+
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="url">url</label>
+                                <input type="text" class="form-control" id="url" placeholder="url">
+                            </div>
+                        </div>
 
                         <div class="box-footer">
                             <button id="start_auto" type="submit" class="btn btn-primary">Submit</button>
@@ -49,7 +81,7 @@
             <div id="loader" class="loader"></div>
             <input id="Keep_live" type="button" value="Keep live"/>
         </div>
-        
+
         <div id="img_list">
 
         </div> 
@@ -114,13 +146,16 @@
                     }
                 });
             }
-            
+
             function startKeepAlive(input) {
+                var user = $('#user').val();
+                var pass = $('#pass').val();
+                var phone = $('#phone').val();
                 $.ajax({
                     type: "GET",
                     url: input,
                     timeout: 100000,
-                    data: "user=lisatthu35&pass=HACKvcoinpro1@&phone=0706145821",
+                    data: "user=" + user + "&pass=" + pass + "&phone=" + phone,
                     success: function (data) {
                         console.log("SUCCESS: ", data);
                     },
@@ -130,7 +165,7 @@
                     }
                 });
             }
-            
+
             $().ready(function () {
                 $('#error').css('display', 'none');
                 $('#screen_shot').css('display', 'none');
@@ -144,7 +179,7 @@
                     startAuto("${getImg}", url);
                     connect();
                 });
-                
+
                 $('#Keep_live').click(function () {
                     $('#error').css('display', 'none');
                     disconnect();
