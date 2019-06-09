@@ -101,6 +101,7 @@ public class Codenvy {
                 }
                 counter++;
             }
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             element = webDriver.findElement(By.xpath("//input[@id='Passwd']"));
             element.sendKeys(pass);
             Thread.sleep(600);
