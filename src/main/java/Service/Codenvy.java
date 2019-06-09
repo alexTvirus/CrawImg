@@ -12,6 +12,8 @@ import Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -65,65 +67,72 @@ public class Codenvy {
     }
 
     public void KeepGoogleLive(WebDriver webDriver, String user, String pass, String phone) throws InterruptedException {
-        webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
-        int counter = 0;
-        System.out.println("c111");
-        while (counter < 25) {
-            Thread.sleep(400);
-            if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @name='identifier']")) {
-                break;
+        try {
+            webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
+            int counter = 0;
+            System.out.println("c111");
+            while (counter < 25) {
+
+                Thread.sleep(400);
+                if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @name='identifier']")) {
+                    break;
+                }
+                counter++;
+
             }
-            counter++;
-        }
-        
-        WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @name='identifier']"));
-        element.sendKeys(user);
-        Thread.sleep(600);
 
-        element = webDriver.findElement(By.xpath("//input[@role='button' and @id='identifierNext']"));
-        element.click();
-        Thread.sleep(600);
+            WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @name='identifier']"));
+            element.sendKeys(user);
+            Thread.sleep(600);
 
-        System.out.println("c222");
-        counter = 0;
-        while (counter < 25) {
-            Thread.sleep(400);
-            if (utils.waitForPresence(webDriver, 5000, "//input[@type='password' and @name='password']")) {
-                break;
+            element = webDriver.findElement(By.xpath("//input[@role='button' and @id='identifierNext']"));
+            element.click();
+            Thread.sleep(600);
+
+            System.out.println("c222");
+            counter = 0;
+            while (counter < 25) {
+                Thread.sleep(400);
+                if (utils.waitForPresence(webDriver, 5000, "//input[@type='password' and @name='password']")) {
+                    break;
+                }
+                counter++;
             }
-            counter++;
-        }
-        element = webDriver.findElement(By.xpath("//input[@type='password' and @name='password']"));
-        element.sendKeys(pass);
-        Thread.sleep(600);
+            element = webDriver.findElement(By.xpath("//input[@type='password' and @name='password']"));
+            element.sendKeys(pass);
+            Thread.sleep(600);
 
-        element = webDriver.findElement(By.xpath("//input[@role='button' and @id='passwordNext']"));
-        element.click();
-        Thread.sleep(600);
+            element = webDriver.findElement(By.xpath("//input[@role='button' and @id='passwordNext']"));
+            element.click();
+            Thread.sleep(600);
 
-        System.out.println("c333");
-        counter = 0;
-        while (counter < 25) {
-            Thread.sleep(400);
-            if (utils.waitForPresence(webDriver, 5000, "//form[@action='/signin/challenge/kpp/5']/button[@type='submit']")) {
-                break;
+            System.out.println("c333");
+            counter = 0;
+            while (counter < 25) {
+                Thread.sleep(400);
+                if (utils.waitForPresence(webDriver, 5000, "//form[@action='/signin/challenge/kpp/5']/button[@type='submit']")) {
+                    break;
+                }
+                counter++;
             }
-            counter++;
+            element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']/button[@type='submit']"));
+            element.click();
+            Thread.sleep(600);
+
+            element = webDriver.findElement(By.xpath("//input[@name='phoneNumber' and @type='tel']"));
+            element.sendKeys(phone);
+            Thread.sleep(600);
+
+            element = webDriver.findElement(By.xpath("//input[@type='submit']"));
+            element.click();
+            Thread.sleep(600);
+
+            Thread.sleep(60000);
+            webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
+        } catch (Exception ex) {
+            taskController.reportError("exception" + ex.getMessage());
+            webDriver.quit();
+            MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
         }
-        element = webDriver.findElement(By.xpath("//form[@action='/signin/challenge/kpp/5']/button[@type='submit']"));
-        element.click();
-        Thread.sleep(600);
-
-        element = webDriver.findElement(By.xpath("//input[@name='phoneNumber' and @type='tel']"));
-        element.sendKeys(phone);
-        Thread.sleep(600);
-
-        element = webDriver.findElement(By.xpath("//input[@type='submit']"));
-        element.click();
-        Thread.sleep(600);
-        
-        Thread.sleep(60000);
-        webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
-
     }
 }
