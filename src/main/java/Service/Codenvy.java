@@ -68,8 +68,8 @@ public class Codenvy {
 
     public void KeepGoogleLive(WebDriver webDriver, String user, String pass, String phone) throws InterruptedException {
         try {
-            //webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
-            webDriver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
+            webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
+//            webDriver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
 
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             int counter = 0;
@@ -78,7 +78,7 @@ public class Codenvy {
             while (counter < 25) {
 
                 Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @id='Email'")) {
+                if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @id='Email']")) {
                     break;
                 }
                 counter++;
@@ -97,12 +97,12 @@ public class Codenvy {
             counter = 0;
             while (counter < 25) {
                 Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 5000, "//input[@id='Passwd'")) {
+                if (utils.waitForPresence(webDriver, 5000, "//input[@id='Passwd']")) {
                     break;
                 }
                 counter++;
             }
-            element = webDriver.findElement(By.xpath("//input[@id='Passwd'"));
+            element = webDriver.findElement(By.xpath("//input[@id='Passwd']"));
             element.sendKeys(pass);
             Thread.sleep(600);
 
