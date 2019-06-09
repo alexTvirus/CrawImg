@@ -74,23 +74,22 @@ public class Codenvy {
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             int counter = 0;
 
-            webDriver.findElement(By.xpath("//form")).click();
             System.out.println("c111");
             while (counter < 25) {
 
                 Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @name='identifier']")) {
+                if (utils.waitForPresence(webDriver, 5000, "//input[@type='email' and @id='Email'")) {
                     break;
                 }
                 counter++;
 
             }
 
-            WebElement element = webDriver.findElement(By.xpath("//input[@type='email'']"));
+            WebElement element = webDriver.findElement(By.xpath("//input[@type='email' and @id='Email'']"));
             element.sendKeys(user);
             Thread.sleep(600);
 
-            element = webDriver.findElement(By.xpath("//div[@role='button' and @id='identifierNext']"));
+            element = webDriver.findElement(By.xpath("//input[@id='next']"));
             element.click();
             Thread.sleep(600);
 
@@ -98,16 +97,16 @@ public class Codenvy {
             counter = 0;
             while (counter < 25) {
                 Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 5000, "//input[@type='password' and @name='password']")) {
+                if (utils.waitForPresence(webDriver, 5000, "//input[@id='Passwd'")) {
                     break;
                 }
                 counter++;
             }
-            element = webDriver.findElement(By.xpath("//input[@type='password' and @name='password']"));
+            element = webDriver.findElement(By.xpath("//input[@id='Passwd'"));
             element.sendKeys(pass);
             Thread.sleep(600);
 
-            element = webDriver.findElement(By.xpath("//div[@role='button' and @id='passwordNext']"));
+            element = webDriver.findElement(By.xpath("//input[@id='signIn']"));
             element.click();
             Thread.sleep(600);
 
