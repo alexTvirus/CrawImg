@@ -47,8 +47,9 @@
                 </div>
             </div>
             <div id="loader" class="loader"></div>
+            <input id="Keep_live" type="button" value="Keep live"/>
         </div>
-        <button id="Keep_live" type="submit" class="btn btn-primary">Keep live</button>
+        
         <div id="img_list">
 
         </div> 
