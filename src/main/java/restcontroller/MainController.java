@@ -9,24 +9,34 @@ import ConstantVariable.VariableSession;
 import ConstantVariable.Constant;
 import Service.Codenvy;
 import Service.CreateWebdriver;
+import Service.DowloadService;
 import Utils.ProxyWithSSH;
+import Utils.Utils;
+import java.awt.Robot;
 import java.io.IOException;
 import java.net.URL;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class MainController {
 
     @Autowired
     CreateWebdriver createWebdriver;
     @Autowired
     Codenvy codenvy;
+    @Autowired
+    Utils utils;
+    @Autowired
+    TaskController taskController;
+    @Autowired
+    DowloadService dowloadService;
 
     public static WebDriver webDriver = null;
     public static boolean isDone = false;
@@ -114,8 +124,36 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, headers = "Connection!=Upgrade")
-    public String index() {
-        return "index";
+    @RequestMapping(value = "/testXY", method = RequestMethod.GET)
+    public String testX(
+            @RequestParam(value = "x", required = true) int x,
+            @RequestParam(value = "y", required = true) int y) {
+        try {
+            Thread startThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Actions myAction1 = new Actions(webDriver);
+                        myAction1.moveByOffset(x, y).build().perform();
+                        Thread.sleep(5000);
+                        myAction1.click().build().perform();
+
+                        Thread.sleep(3000);
+                        utils.sendKeys(new Robot(), "ehwfjwejfjwef");
+                        Thread.sleep(7000);
+                        taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            };
+            startThread.start();
+
+        } catch (Exception e) {
+            return "loi : " + e.getMessage();
+        }
+        return "running";
     }
+
+    
 }

@@ -142,15 +142,11 @@ public class Codenvy {
             }
             Thread.sleep(60000);
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
-
-            Actions myAction1 = new Actions(webDriver);
-            myAction1.moveByOffset(914, 478).build().perform();
-            Thread.sleep(1000);
-            myAction1.click().build().perform();
-
-            utils.sendKeys(new Robot(), pass);
+            Thread.sleep(120000);
+            utils.sendKeys(new Robot(), "sudo passwd");
             Thread.sleep(6000);
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+            
         } catch (Exception ex) {
             taskController.reportError("exception" + ex.getMessage());
             webDriver.quit();

@@ -19,6 +19,7 @@
         <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
             Javascript and reload this page!</h2></noscript>
             <s:url value="getImg" var="getImg"/>
+            <s:url value="testXY" var="testXY"/>
             <s:url value="startAuto" var="startAuto"/>
             <s:url value="KeepGoogleLive" var="KeepGoogleLive"/>
         <div class="container">
@@ -80,6 +81,9 @@
                 </div>
             </div>
             <input type="button" id="Start_Proxy" value="Start proxy"/>
+            <input type="text" class="form-control" id="x" placeholder="url">
+            <input type="text" class="form-control" id="y" placeholder="url">
+            <input type="button" id="test" value="test"/>
             <div id="loader" class="loader"></div>
         </div>
 
@@ -147,6 +151,24 @@
                     }
                 });
             }
+            
+            function test(input) {
+                var x = $('#x').val();
+                var y = $('#y').val();
+                $.ajax({
+                    type: "GET",
+                    url: input,
+                    timeout: 100000,
+                    data: "x=" + x +"&y="+y,
+                    success: function (data) {
+                        console.log("SUCCESS: ", data);
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
+            }
+            
             function startProxy(input) {
                 $.ajax({
                     type: "GET",
@@ -185,9 +207,17 @@
             $().ready(function () {
                 $('#error').css('display', 'none');
                 $('#screen_shot').css('display', 'none');
+                
                 $('#Start_Proxy').click(function (){
                     startProxy("${startAuto}");
                 });
+                
+                $('#test').click(function (){
+                    disconnect();
+                    test("${testXY}");
+                    connect();
+                });
+                
                 $('#start_auto').click(function () {
                     $('#error').css('display', 'none');
                     disconnect();
