@@ -46,6 +46,35 @@ public class Codenvy {
         WebElement element = null;
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
+            //webDriver.get(url);
+
+            //js.executeScript("document.body.style.zoom = '0.15'");
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+            Thread.sleep(300);
+
+            taskController.getImg("done");
+            //webDriver.quit();
+        } catch (Exception e) {
+            if (e instanceof PageLoadTooLongException) {
+                taskController.reportError("Page load too long please submit again");
+                webDriver.quit();
+                MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+            } else {
+                taskController.reportError("exception" + e.getMessage());
+                webDriver.quit();
+                MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+            }
+
+        }
+
+        return "complete";
+    }
+    
+    public String test(WebDriver webDriver, String url) throws InterruptedException {
+        this.webDrivers = webDriver;
+        WebElement element = null;
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        try {
             webDriver.get(url);
 
             //js.executeScript("document.body.style.zoom = '0.15'");
@@ -143,11 +172,12 @@ public class Codenvy {
                 counter++;
             }
             Thread.sleep(60000);
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
             Thread.sleep(120000);
             utils.sendKeys(new Robot(), "sudo passwd");
             Thread.sleep(6000);
-            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+            
             Actions myAction = null;
             while (true) {
                 utils.sendKeys(new Robot(), "sudo passwd");
