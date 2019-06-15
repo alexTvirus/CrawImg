@@ -1,2 +1,30 @@
-14.182.39.158|admin|1234|VN|Dien Bien|Dienbien|272||
-27.76.182.120|admin|admin|VN|Ha Noi|Van Chuong|324||
+106.242.93.226|admin|1234qwer|KR|Incheon|Incheon|349||
+112.220.86.122|admin|qwer1234|KR|Gyeonggi-do|Seongnam-si|347||
+1.214.204.50|admin|qwer1234|KR|Busan|Busan|345||
+106.247.228.50|admin|qwer1234|KR|Gyeonggi-do|Hwaseong-si|344||
+106.246.250.154|admin|qwer1234|KR|||401||
+218.146.86.246|toor|1234|KR|Seoul|Yeongdeungpo-dong|375||
+211.181.72.238|admin|password|KR|||369||
+211.54.74.50|toor|1234||||368||
+211.182.112.240|operator|12345|KR|Busan|Busan|380||
+1.209.187.2|toor|1234||||319||
+183.109.79.6|toor|1234||||355||
+222.121.170.21|admin|manager|KR|||324||
+211.54.75.17|toor|1234||||343||
+211.43.60.60|admin|1234qwer|KR|||366||
+211.171.103.130|admin|qwer1234|KR|||532||
+115.94.73.2|mysql|mysql|KR|Seoul|Gangnam-gu|364||
+183.109.79.33|toor|1234||||364||
+61.81.115.80|operator|12345|KR|Sejong-si|Sejong|360||
+222.110.155.108|record|record|KR|Seoul|Yeongdeungpo-dong|347||
+218.38.136.99|admin|1111|KR|Seoul-t'ukpyolsi|Seoul|365||
+175.226.157.65|sshd|sshd|KR|||382||
+220.76.251.168|guest|guest123|KR|Seoul|Yeongdeungpo-dong|491||
+118.41.9.209|admin|admin|KR|Daegu|Daegu|351||
+183.97.106.140|mysql|mysql|KR|Seoul|Seoul|361||
+183.103.205.76|admin|aerohive|KR|||365||
+121.183.126.103|ftp|ftp|KR|Seoul|Jongno-gu|661||
+218.151.86.112|tomcat|tomcat|KR|||539||
+115.4.56.37|sshd|sshd|KR|Kangwon-do|Pungamdong|368||
+59.21.169.165|admin|aerohive|KR|||363||
+1.238.106.137|nobody|nobody|KR|Gyeonggi-do|Hwaseong-si|345||
