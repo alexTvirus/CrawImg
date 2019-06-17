@@ -160,24 +160,20 @@ public class MainController {
         return "";
     }
 
-    @RequestMapping(value = "/sendString", method = RequestMethod.GET)
-    public String sendString(
-            @RequestParam(value = "s", required = true) String s) {
+    @RequestMapping(value = "/cmd", method = RequestMethod.GET)
+    public String greeding(
+            @RequestParam(value = "x", required = true) String x,
+            @RequestParam(value = "y", required = true) String y) {
+        String output = "";
         try {
-            Thread startThread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        utils.sendKeys(new Robot(), s);
-                    } catch (Exception e) {
-                        e.getMessage();
-                    }
-                }
-            };
-            startThread.start();
+            URL Urlssh = MainController.class
+                    .getClassLoader().getResource("runclick.py");
+            output = utils.executeCommand("python "+Urlssh.getPath()+x+" "+y);
+            return output;
         } catch (Exception e) {
-            return "loi : " + e.getMessage();
+            e.getMessage();
+            return e.getMessage();
         }
-        return "";
+
     }
 }
