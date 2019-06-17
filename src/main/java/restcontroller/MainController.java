@@ -171,10 +171,13 @@ public class MainController {
                 @Override
                 public void run() {
                     try {
-                        
-                        myAction1.moveByOffset(x, y).build().perform();
-                        Thread.sleep(1000);
-                        myAction1.click().build().perform();
+                        System.out.println("clacik1");
+                        myAction1 = new Actions(webDriver);
+                        myAction1.moveByOffset(x, y).perform();
+                        Thread.sleep(2000);
+                        myAction1.click().perform();
+                        myAction1.moveByOffset(-x, -y).build().perform();
+                         System.out.println("clacik2");
                     } catch (Exception e) {
                         e.getMessage();
                     }
