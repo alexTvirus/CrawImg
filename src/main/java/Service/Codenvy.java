@@ -104,8 +104,8 @@ public class Codenvy {
         try {
 
             Thread.sleep(60000);
-            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(120000);
             utils.sendKeys(new Robot(), "sudo passwd");
             Thread.sleep(6000);
@@ -176,28 +176,30 @@ public class Codenvy {
 
             counter = 0;
             Thread.sleep(400);
-            while (counter < 25) {
-
-                Thread.sleep(400);
-                if (utils.waitForPresence(webDriver, 1000, "//input[@type='submit']")) {
-                    element = webDriver.findElement(By.xpath("//button[@type='submit']"));
-                    element.click();
-                    Thread.sleep(600);
-                    taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
-                    element = webDriver.findElement(By.xpath("//input[@id='idvPreregisteredPhonePin' and @type='tel']"));
-                    while (!MainController.isDone) {
-                        Thread.sleep(600);
-                    }
-
-                    element.sendKeys(MainController.verifyCode);
-                    Thread.sleep(600);
-
-                    element = webDriver.findElement(By.xpath("//input[@type='submit']"));
-                    element.click();
-                    Thread.sleep(600);
-                }
-                counter++;
-            }
+            // hay dung ssh 1 de dang nhap o? may tinh local cho gg nos hieu la ip nay hop le
+            // sau do cho ssh 1 nay chay tren vps thi luc do se khong doi` xac thuc nua
+//            while (counter < 25) {
+//
+//                Thread.sleep(400);
+//                if (utils.waitForPresence(webDriver, 1000, "//input[@type='submit']")) {
+//                    element = webDriver.findElement(By.xpath("//button[@type='submit']"));
+//                    element.click();
+//                    Thread.sleep(600);
+//                    taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+//                    element = webDriver.findElement(By.xpath("//input[@id='idvPreregisteredPhonePin' and @type='tel']"));
+//                    while (!MainController.isDone) {
+//                        Thread.sleep(600);
+//                    }
+//
+//                    element.sendKeys(MainController.verifyCode);
+//                    Thread.sleep(600);
+//
+//                    element = webDriver.findElement(By.xpath("//input[@type='submit']"));
+//                    element.click();
+//                    Thread.sleep(600);
+//                }
+//                counter++;
+//            }
         } catch (Exception ex) {
             taskController.reportError("exception" + ex.getMessage());
             webDriver.quit();
