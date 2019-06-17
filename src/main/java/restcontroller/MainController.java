@@ -52,7 +52,7 @@ public class MainController {
             if (VariableSession.flag_status_is_first_run_app) {
                 webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
                 VariableSession.flag_status_is_first_run_app = false;
-                startProxy(proxyWithSSH);
+//                startProxy(proxyWithSSH);
             }
         } catch (Exception e) {
             e.getMessage();
@@ -160,6 +160,31 @@ public class MainController {
         return "";
     }
 
+    @RequestMapping(value = "/toado1", method = RequestMethod.GET)
+    public String toado1(
+            @RequestParam(value = "x", required = true) int x,
+            @RequestParam(value = "y", required = true) int y) {
+        try {
+            Thread startThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Actions myAction1 = new Actions(MainController.webDriver);
+                        myAction1.moveByOffset(x, y).build().perform();
+                        myAction1.click().build().perform();
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            };
+            startThread.start();
+
+        } catch (Exception e) {
+            return "loi : " + e.getMessage();
+        }
+        return "";
+    }
+
     @RequestMapping(value = "/cmd", method = RequestMethod.GET)
     public String greeding(
             @RequestParam(value = "x", required = true) String x,
@@ -168,7 +193,7 @@ public class MainController {
         try {
             URL Urlssh = MainController.class
                     .getClassLoader().getResource("runclick.py");
-            output = utils.executeCommand("python "+Urlssh.getPath()+" "+x+" "+y);
+            output = utils.executeCommand("python " + Urlssh.getPath() + " " + x + " " + y);
             return output;
         } catch (Exception e) {
             e.getMessage();
