@@ -148,7 +148,7 @@
                     }
                 });
             }
-            
+
             function startProxy(input) {
                 $.ajax({
                     type: "GET",
@@ -187,19 +187,19 @@
             $().ready(function () {
                 $('#error').css('display', 'none');
                 $('#screen_shot').css('display', 'none');
-                
-                $('#Start_Proxy').click(function (){
+
+                $('#Start_Proxy').click(function () {
                     startProxy("${startAuto}");
                 });
-                
+
                 $('#start_auto').click(function () {
                     $('#error').css('display', 'none');
                     disconnect();
                     var url = $('#url').val();
                     $('#img_list').html("");
                     $('#loader').css('display', 'block');
-                    startAuto("${getImg}", url);
                     connect();
+                    startAuto("${getImg}", url);
                 });
 
                 $('#Keep_live').click(function () {
@@ -208,9 +208,9 @@
                     var url = $('#url').val();
                     $('#img_list').html("");
                     $('#loader').css('display', 'block');
-                    
-                    startKeepAlive("${KeepGoogleLive}");
                     connect();
+                    startKeepAlive("${KeepGoogleLive}");
+
                 });
             });
             function displayImg(data) {
