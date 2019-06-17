@@ -85,12 +85,14 @@
         </div>
 
         <div id="img_list">
-
+			
         </div> 
-        <div style="height: 100%;width: 100%;margin: 0 auto;">
-            <img  id="screen_shot"/>
-        </div>
-        
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<img  id="screen_shot"/>
+			</div>
+		</div>
         <div>
             <textarea style="height: 300px;width: 400px" id="error"></textarea>
         </div>
