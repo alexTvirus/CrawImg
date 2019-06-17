@@ -83,7 +83,7 @@ public class Codenvy {
             System.out.println("printf img");
             Thread.sleep(300);
 
-            taskController.getImg("done");
+            taskController.getScreenShot("done");
             //webDriver.quit();
         } catch (Exception e) {
             if (e instanceof PageLoadTooLongException) {

@@ -172,8 +172,8 @@ public class MainController {
                 public void run() {
                     try {
                         
-//                        myAction1.moveByOffset(x, y).build().perform();
-//                        Thread.sleep(1000);
+                        myAction1.moveByOffset(x, y).build().perform();
+                        Thread.sleep(1000);
                         myAction1.click().build().perform();
                     } catch (Exception e) {
                         e.getMessage();
