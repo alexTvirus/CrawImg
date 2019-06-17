@@ -125,4 +125,14 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping(value = "/startSpam", method = RequestMethod.GET, headers = "Connection!=Upgrade")
+    public void startSpam() {
+        TaskController.isStart = true;
+    }
+
+    @RequestMapping(value = "/stopSpam", method = RequestMethod.GET, headers = "Connection!=Upgrade")
+    public void stopSpam() {
+        TaskController.isStart = false;
+    }
+
 }

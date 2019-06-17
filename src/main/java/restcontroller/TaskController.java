@@ -1,6 +1,8 @@
 package restcontroller;
 
+import Service.DowloadService;
 import Utils.ProxyWithSSH;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,6 +20,9 @@ public class TaskController {
     private SimpMessagingTemplate template;
     @Autowired
     ProxyWithSSH proxyWithSSH;
+    public static boolean isStart = false;
+    @Autowired
+    DowloadService dowloadService;
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
@@ -42,6 +47,13 @@ public class TaskController {
 
     public void reportError(String str) throws InterruptedException {
         this.template.convertAndSend("/error/greetings", str);
+    }
+
+    @Scheduled(fixedRate = 5000)
+    public void spam() throws InterruptedException, IOException {
+        if (isStart) {
+            this.template.convertAndSend("/auto/getScreenShot", dowloadService.dowloadImgTypeBase64(MainController.webDriver));
+        }
     }
 
     @Scheduled(fixedRate = 45000)
