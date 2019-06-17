@@ -168,7 +168,7 @@ public class MainController {
         try {
             URL Urlssh = MainController.class
                     .getClassLoader().getResource("runclick.py");
-            output = utils.executeCommand("python "+Urlssh.getPath()+x+" "+y);
+            output = utils.executeCommand("python "+Urlssh.getPath()+" "+x+" "+y);
             return output;
         } catch (Exception e) {
             e.getMessage();
