@@ -142,8 +142,39 @@ public class MainController {
             @RequestParam(value = "x", required = true) int x,
             @RequestParam(value = "y", required = true) int y) {
         try {
+            Thread startThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        utils.click(x, y);
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            };
+            startThread.start();
 
-            utils.click(x, y);
+        } catch (Exception e) {
+            return "loi : " + e.getMessage();
+        }
+        return "";
+    }
+
+    @RequestMapping(value = "/sendString", method = RequestMethod.GET)
+    public String sendString(
+            @RequestParam(value = "s", required = true) String s) {
+        try {
+            Thread startThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        utils.sendKeys(new Robot(), s);
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            };
+            startThread.start();
         } catch (Exception e) {
             return "loi : " + e.getMessage();
         }
