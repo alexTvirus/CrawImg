@@ -44,6 +44,7 @@ public class MainController {
     public static WebDriver webDriver = null;
     public static boolean isDone = false;
     public static String verifyCode = "";
+    public static Actions myAction1;
 
     @RequestMapping(value = "/startAuto", method = RequestMethod.GET, headers = "Connection!=Upgrade")
     public @ResponseBody
@@ -52,6 +53,7 @@ public class MainController {
             if (VariableSession.flag_status_is_first_run_app) {
                 webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
                 VariableSession.flag_status_is_first_run_app = false;
+                myAction1 = new Actions(MainController.webDriver);
                 startProxy(proxyWithSSH);
             }
         } catch (Exception e) {
@@ -169,9 +171,9 @@ public class MainController {
                 @Override
                 public void run() {
                     try {
-                        Actions myAction1 = new Actions(MainController.webDriver);
-                        myAction1.moveByOffset(x, y).build().perform();
-                        Thread.sleep(1000);
+                        
+//                        myAction1.moveByOffset(x, y).build().perform();
+//                        Thread.sleep(1000);
                         myAction1.click().build().perform();
                     } catch (Exception e) {
                         e.getMessage();

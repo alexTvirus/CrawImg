@@ -77,9 +77,10 @@ public class Codenvy {
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
             webDriver.get(url);
-
+            System.out.println("run web ok");
             //js.executeScript("document.body.style.zoom = '0.15'");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+            System.out.println("printf img");
             Thread.sleep(300);
 
             taskController.getImg("done");
