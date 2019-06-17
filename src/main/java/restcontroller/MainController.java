@@ -63,6 +63,26 @@ public class MainController {
         }
         return "running";
     }
+	
+	@RequestMapping(value = "/resetDriver", method = RequestMethod.GET, headers = "Connection!=Upgrade")
+    public @ResponseBody
+    String resetDriver() {
+
+			Thread startThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+					webDriver.quit();
+					webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+						} catch (Exception e) {
+                        e.getMessage();
+						}
+                }
+            };
+            startThread.start();
+
+        return "running";
+    }
 
     public static void startProxy(ProxyWithSSH proxyWithSSH) {
         try {
