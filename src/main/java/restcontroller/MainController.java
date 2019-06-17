@@ -52,7 +52,7 @@ public class MainController {
             if (VariableSession.flag_status_is_first_run_app) {
                 webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
                 VariableSession.flag_status_is_first_run_app = false;
-//                startProxy(proxyWithSSH);
+                startProxy(proxyWithSSH);
             }
         } catch (Exception e) {
             e.getMessage();
