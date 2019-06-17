@@ -1,12 +1,13 @@
 package restcontroller;
 
-
+import Utils.ProxyWithSSH;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 @EnableScheduling
@@ -15,6 +16,8 @@ public class TaskController {
 
     @Autowired
     private SimpMessagingTemplate template;
+    @Autowired
+    ProxyWithSSH proxyWithSSH;
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
@@ -28,17 +31,21 @@ public class TaskController {
 
     public void looperAuto() throws InterruptedException {
     }
-    
+
     public void getImg(String url) throws InterruptedException {
-         this.template.convertAndSend("/auto/getImg",url);
+        this.template.convertAndSend("/auto/getImg", url);
     }
 
     public void getScreenShot(String url) throws InterruptedException {
-         this.template.convertAndSend("/auto/getScreenShot",url);
+        this.template.convertAndSend("/auto/getScreenShot", url);
     }
-    
+
     public void reportError(String str) throws InterruptedException {
         this.template.convertAndSend("/error/greetings", str);
     }
 
+    @Scheduled(fixedRate = 45000)
+    public void checkConnect() throws InterruptedException {
+        proxyWithSSH.checkConnect();
+    }
 }

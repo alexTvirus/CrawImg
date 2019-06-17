@@ -11,6 +11,7 @@ import Service.Codenvy;
 import Service.CreateWebdriver;
 import Service.DowloadService;
 import Service.PathDriver;
+import Utils.ProxyWithSSH;
 import Utils.Utils;
 import com.google.gson.Gson;
 import org.springframework.context.annotation.ComponentScan;
@@ -46,6 +47,11 @@ public class SpringConfig {
     @Bean
     public Codenvy codenvy() {
         return new Codenvy();
+    }
+    
+    @Bean
+    public ProxyWithSSH proxyWithSSH() {
+        return new ProxyWithSSH();
     }
 
     @Bean

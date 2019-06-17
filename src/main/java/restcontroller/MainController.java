@@ -37,7 +37,8 @@ public class MainController {
     TaskController taskController;
     @Autowired
     DowloadService dowloadService;
-
+    @Autowired
+    ProxyWithSSH proxyWithSSH;
     public static WebDriver webDriver = null;
     public static boolean isDone = false;
     public static String verifyCode = "";
@@ -49,7 +50,6 @@ public class MainController {
             if (VariableSession.flag_status_is_first_run_app) {
                 webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
                 VariableSession.flag_status_is_first_run_app = false;
-                ProxyWithSSH proxyWithSSH = new ProxyWithSSH();
                 startProxy(proxyWithSSH);
             }
         } catch (Exception e) {
@@ -103,7 +103,8 @@ public class MainController {
                 @Override
                 public void run() {
                     try {
-                        codenvy.KeepGoogleLive(webDriver, user, pass, phone);
+                        codenvy.loginGoogle(webDriver, user, pass, phone);
+                        codenvy.KeepGoogleLive(webDriver);
                     } catch (Exception e) {
                         e.getMessage();
                     }

@@ -10,6 +10,7 @@ import Exception.PageLoadTooLongException;
 
 import Utils.Utils;
 import java.awt.Robot;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class Codenvy {
 
         return "complete";
     }
-    
+
     public String test(WebDriver webDriver, String url) throws InterruptedException {
         this.webDrivers = webDriver;
         WebElement element = null;
@@ -99,9 +100,35 @@ public class Codenvy {
         return "complete";
     }
 
-    public void KeepGoogleLive(WebDriver webDriver, String user, String pass, String phone) throws InterruptedException {
+    public void KeepGoogleLive(WebDriver webDriver) throws InterruptedException {
         try {
-            webDriver.get("https://console.cloud.google.com/home/dashboard?project=sql1-177218&authuser=0&folder=&organizationId=");
+
+            Thread.sleep(60000);
+            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+            webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
+            Thread.sleep(120000);
+            utils.sendKeys(new Robot(), "sudo passwd");
+            Thread.sleep(6000);
+
+            Actions myAction = null;
+            while (true) {
+                utils.sendKeys(new Robot(), "sudo passwd");
+                Thread.sleep(6000);
+                myAction = new Actions(webDriver);
+                myAction.sendKeys(Keys.ENTER).build().perform();
+                Thread.sleep(5000);
+            }
+
+        } catch (Exception ex) {
+            taskController.reportError("exception" + ex.getMessage());
+            webDriver.quit();
+            MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+        }
+    }
+
+    public void loginGoogle(WebDriver webDriver, String user, String pass, String phone) throws IOException, InterruptedException {
+        try {
+            webDriver.get("https://accounts.google.com/signin");
 //            webDriver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
 
             int counter = 0;
@@ -171,22 +198,6 @@ public class Codenvy {
                 }
                 counter++;
             }
-            Thread.sleep(60000);
-            taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
-            webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
-            Thread.sleep(120000);
-            utils.sendKeys(new Robot(), "sudo passwd");
-            Thread.sleep(6000);
-            
-            Actions myAction = null;
-            while (true) {
-                utils.sendKeys(new Robot(), "sudo passwd");
-                Thread.sleep(6000);
-                myAction = new Actions(webDriver);
-                myAction.sendKeys(Keys.ENTER).build().perform();
-                Thread.sleep(5000);
-            }
-
         } catch (Exception ex) {
             taskController.reportError("exception" + ex.getMessage());
             webDriver.quit();
