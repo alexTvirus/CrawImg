@@ -171,13 +171,11 @@ public class MainController {
                 @Override
                 public void run() {
                     try {
-                        System.out.println("clacik1");
                         myAction1 = new Actions(webDriver);
-                        myAction1.moveByOffset(x, y).perform();
-                        Thread.sleep(2000);
-                        myAction1.click().perform();
+                        myAction1.moveByOffset(x, y).click().build().perform();
+//                        Thread.sleep(2000);
+//                        myAction1.click().perform();
                         myAction1.moveByOffset(-x, -y).build().perform();
-                         System.out.println("clacik2");
                     } catch (Exception e) {
                         e.getMessage();
                     }
@@ -191,19 +189,24 @@ public class MainController {
         return "";
     }
 
-    @RequestMapping(value = "/cmd", method = RequestMethod.GET)
-    public String greeding(
-            @RequestParam(value = "x", required = true) String x,
-            @RequestParam(value = "y", required = true) String y) {
-        String output = "";
+    @RequestMapping(value = "/getWith", method = RequestMethod.GET)
+    public int greeding() {
         try {
-            URL Urlssh = MainController.class
-                    .getClassLoader().getResource("runclick.py");
-            output = utils.executeCommand("python " + Urlssh.getPath() + " " + x + " " + y);
-            return output;
+            return webDriver.manage().window().getSize().width;
         } catch (Exception e) {
             e.getMessage();
-            return e.getMessage();
+            return -1;
+        }
+
+    }
+
+    @RequestMapping(value = "/getHigth", method = RequestMethod.GET)
+    public int getHigth() {
+        try {
+            return webDriver.manage().window().getSize().height;
+        } catch (Exception e) {
+            e.getMessage();
+            return -1;
         }
 
     }

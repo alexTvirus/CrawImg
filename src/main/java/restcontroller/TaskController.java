@@ -49,7 +49,7 @@ public class TaskController {
         this.template.convertAndSend("/error/greetings", str);
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 2000)
     public void spam() throws InterruptedException, IOException {
         if (isStart) {
             this.template.convertAndSend("/auto/getScreenShot", dowloadService.dowloadImgTypeBase64(MainController.webDriver));
