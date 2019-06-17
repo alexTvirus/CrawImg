@@ -55,6 +55,8 @@ public class MainController {
                 VariableSession.flag_status_is_first_run_app = false;
                 myAction1 = new Actions(MainController.webDriver);
                 startProxy(proxyWithSSH);
+                webDriver.manage().window().maximize();
+                webDriver.manage().window().fullscreen();
             }
         } catch (Exception e) {
             e.getMessage();

@@ -87,7 +87,7 @@
         <div id="img_list">
 
         </div> 
-        <img id="screen_shot"/>
+        <img style="height: 100%;width: 100%;margin: 0 auto;" id="screen_shot"/>
         <div>
             <textarea style="height: 300px;width: 400px" id="error"></textarea>
         </div>
