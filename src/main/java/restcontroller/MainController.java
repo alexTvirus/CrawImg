@@ -15,7 +15,9 @@ import Utils.Utils;
 import java.awt.Robot;
 import java.io.IOException;
 import java.net.URL;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -135,4 +137,20 @@ public class MainController {
         TaskController.isStart = false;
     }
 
+    @RequestMapping(value = "/toado", method = RequestMethod.GET)
+    public String testX(
+            @RequestParam(value = "x", required = true) int x,
+            @RequestParam(value = "y", required = true) int y) {
+        try {
+            if (VariableSession.flag_status_is_first_run_app) {
+                webDriver = createWebdriver.getGoogle(Constant.binaryGoogleWindows);
+            }
+            Actions myAction1 = new Actions(webDriver);
+            myAction1.moveByOffset(x, y).build().perform();
+            myAction1.click().build().perform();
+        } catch (Exception e) {
+            return "loi : " + e.getMessage();
+        }
+        return "";
+    }
 }
