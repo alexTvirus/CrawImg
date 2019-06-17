@@ -7,7 +7,9 @@ package Utils;
 
 import ConstantVariable.Constant;
 import Service.PathDriver;
+import java.awt.AWTException;
 import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import org.openqa.selenium.By;
@@ -144,6 +146,16 @@ public class Utils {
             robot.keyRelease(keyCode);
             robot.delay(444);
         }
+    }
+
+    public void click(int x, int y) throws AWTException {
+        Robot bot = new Robot();
+        bot.mouseMove(x, y);
+        bot.delay(200);
+        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        bot.delay(200);
+        bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        bot.delay(200);
     }
 
     public void clearCookieFirefox(WebDriver webDriver) throws InterruptedException {

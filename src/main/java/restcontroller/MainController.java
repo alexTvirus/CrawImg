@@ -142,12 +142,8 @@ public class MainController {
             @RequestParam(value = "x", required = true) int x,
             @RequestParam(value = "y", required = true) int y) {
         try {
-            if (VariableSession.flag_status_is_first_run_app) {
-                webDriver = createWebdriver.getGoogle(Constant.binaryGoogleWindows);
-            }
-            Actions myAction1 = new Actions(webDriver);
-            myAction1.moveByOffset(x, y).build().perform();
-            myAction1.click().build().perform();
+
+            utils.click(x, y);
         } catch (Exception e) {
             return "loi : " + e.getMessage();
         }

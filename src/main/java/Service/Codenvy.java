@@ -77,7 +77,7 @@ public class Codenvy {
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
             webDriver.get(url);
-            
+
             //js.executeScript("document.body.style.zoom = '0.15'");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(300);
@@ -173,7 +173,7 @@ public class Codenvy {
 
             System.out.println("c333");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
-
+            taskController.getImg("done");
             counter = 0;
             Thread.sleep(400);
             // hay dung ssh 1 de dang nhap o? may tinh local cho gg nos hieu la ip nay hop le
