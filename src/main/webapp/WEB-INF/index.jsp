@@ -195,25 +195,22 @@
 
                 $('#Start_Proxy').click(function () {
                     startProxy("${startAuto}");
+					connect();
                 });
 
                 $('#start_auto').click(function () {
                     $('#error').css('display', 'none');
-                    disconnect();
                     var url = $('#url').val();
                     $('#img_list').html("");
                     $('#loader').css('display', 'block');
-                    connect();
                     startAuto("${getImg}", url);
                 });
 
                 $('#Keep_live').click(function () {
                     $('#error').css('display', 'none');
-                    disconnect();
                     var url = $('#url').val();
                     $('#img_list').html("");
                     $('#loader').css('display', 'block');
-                    connect();
                     startKeepAlive("${KeepGoogleLive}");
 
                 });
