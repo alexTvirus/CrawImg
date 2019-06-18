@@ -13,7 +13,9 @@ import java.awt.Robot;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,12 +49,13 @@ public class Codenvy {
         WebElement element = null;
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         try {
-            //webDriver.get(url);
+            String parentWindow = webDriver.getWindowHandle();
+            webDriver.get(url);
 
             //js.executeScript("document.body.style.zoom = '0.15'");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(300);
-
+            webDriver.switchTo().window(parentWindow);
             taskController.getImg("done");
             //webDriver.quit();
         } catch (Exception e) {
@@ -129,6 +132,7 @@ public class Codenvy {
 
     public void loginGoogle(WebDriver webDriver, String user, String pass, String phone) throws IOException, InterruptedException {
         try {
+            String parentWindow = webDriver.getWindowHandle();
             webDriver.get("https://accounts.google.com/signin");
 //            webDriver.get("https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin");
 
@@ -175,8 +179,7 @@ public class Codenvy {
             System.out.println("c333");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             taskController.getImg("done");
-            counter = 0;
-            Thread.sleep(400);
+            webDriver.switchTo().window(parentWindow);
             // hay dung ssh 1 de dang nhap o? may tinh local cho gg nos hieu la ip nay hop le
             // sau do cho ssh 1 nay chay tren vps thi luc do se khong doi` xac thuc nua
 //            while (counter < 25) {

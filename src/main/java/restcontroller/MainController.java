@@ -15,6 +15,7 @@ import Utils.Utils;
 import java.awt.Robot;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,7 +56,7 @@ public class MainController {
                 VariableSession.flag_status_is_first_run_app = false;
                 myAction1 = new Actions(MainController.webDriver);
                 startProxy(proxyWithSSH);
-                webDriver.manage().window().maximize();
+//                webDriver.manage().window().maximize();
                 webDriver.manage().window().fullscreen();
             }
         } catch (Exception e) {
@@ -63,23 +64,23 @@ public class MainController {
         }
         return "running";
     }
-	
-	@RequestMapping(value = "/resetDriver", method = RequestMethod.GET, headers = "Connection!=Upgrade")
+
+    @RequestMapping(value = "/resetDriver", method = RequestMethod.GET, headers = "Connection!=Upgrade")
     public @ResponseBody
     String resetDriver() {
 
-			Thread startThread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-					webDriver.quit();
-					webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
-						} catch (Exception e) {
-                        e.getMessage();
-						}
+        Thread startThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    webDriver.quit();
+                    webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+                } catch (Exception e) {
+                    e.getMessage();
                 }
-            };
-            startThread.start();
+            }
+        };
+        startThread.start();
 
         return "running";
     }
@@ -104,8 +105,7 @@ public class MainController {
                 @Override
                 public void run() {
                     try {
-
-                        codenvy.test(webDriver, url);
+                        codenvy.Start(webDriver, url);
                     } catch (Exception e) {
                         e.getMessage();
                     }
@@ -162,29 +162,6 @@ public class MainController {
     }
 
     @RequestMapping(value = "/toado", method = RequestMethod.GET)
-    public String testX(
-            @RequestParam(value = "x", required = true) int x,
-            @RequestParam(value = "y", required = true) int y) {
-        try {
-            Thread startThread = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        utils.click(x, y);
-                    } catch (Exception e) {
-                        e.getMessage();
-                    }
-                }
-            };
-            startThread.start();
-
-        } catch (Exception e) {
-            return "loi : " + e.getMessage();
-        }
-        return "";
-    }
-
-    @RequestMapping(value = "/toado1", method = RequestMethod.GET)
     public String toado1(
             @RequestParam(value = "x", required = true) int x,
             @RequestParam(value = "y", required = true) int y) {
@@ -195,8 +172,6 @@ public class MainController {
                     try {
                         myAction1 = new Actions(webDriver);
                         myAction1.moveByOffset(x, y).click().build().perform();
-//                        Thread.sleep(2000);
-//                        myAction1.click().perform();
                         myAction1.moveByOffset(-x, -y).build().perform();
                     } catch (Exception e) {
                         e.getMessage();
