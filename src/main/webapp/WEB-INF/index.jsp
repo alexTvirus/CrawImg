@@ -21,6 +21,7 @@
             <s:url value="getImg" var="getImg"/>
             <s:url value="testXY" var="testXY"/>
             <s:url value="startAuto" var="startAuto"/>
+            <s:url value="toado" var="toado"/>
             <s:url value="KeepGoogleLive" var="KeepGoogleLive"/>
         <div class="container">
             <div class="row">
@@ -85,14 +86,14 @@
         </div>
 
         <div id="img_list">
-			
+
         </div> 
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<img  id="screen_shot"/>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <img  id="screen_shot"/>
+            </div>
+        </div>
         <div>
             <textarea style="height: 300px;width: 400px" id="error"></textarea>
         </div>
@@ -138,6 +139,8 @@
                 }
                 console.log("Disconnected");
             }
+
+            //-------------------------------------
             function startAuto(input, url) {
                 $.ajax({
                     type: "GET",
@@ -189,13 +192,29 @@
                 });
             }
 
+            function sendToaDo(x, y, url) {
+                $.ajax({
+                type: "GET",
+                        url: url,
+                        timeout: 100000,
+                        data: "x=" + x + "&y=" + y
+                        success: function (data) {
+                        console.log("SUCCESS: ", data);
+                        },
+                        error: function (e) {
+                        console.log("ERROR: ", e);
+                                display(e);
+                        }
+                });
+            }
+            //-------------------------------------
             $().ready(function () {
                 $('#error').css('display', 'none');
                 $('#screen_shot').css('display', 'none');
 
                 $('#Start_Proxy').click(function () {
                     startProxy("${startAuto}");
-					connect();
+                    connect();
                 });
 
                 $('#start_auto').click(function () {
@@ -238,6 +257,19 @@
                 if (psconsole.length)
                     psconsole.scrollTop(psconsole[0].scrollHeight - psconsole.height());
             }
+
+            var x = y;
+            var y = y;
+            $("#screen_shot").mousemove(function (e) {
+                var p = $("#screen_shot");
+                var offset = p.offset();
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
+            }).mouseover();
+
+            $("#screen_shot").click(function () {
+                sendToaDo(x,y,"${toado}");
+            });
         </script>
     </body>
 </html>
