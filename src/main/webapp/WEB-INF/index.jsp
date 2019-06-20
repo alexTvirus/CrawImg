@@ -197,7 +197,7 @@
                 type: "GET",
                         url: url,
                         timeout: 100000,
-                        data: "x=" + x + "&y=" + y
+                        data: "x=" + x + "&y=" + y,
                         success: function (data) {
                         console.log("SUCCESS: ", data);
                         },
