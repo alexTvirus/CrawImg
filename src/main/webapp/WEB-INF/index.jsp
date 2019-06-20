@@ -120,7 +120,8 @@
                 var socket = new SockJS(url + '/hello');
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function (frame) {
-                    console.log('Connected: ' + frame);
+                    //console.log('Connected: ' + frame);
+                    consolde.log("connected");
                     stompClient.subscribe('/auto/getImg', function (greeting) {
                         displayImg(greeting.body);
                     });
@@ -194,17 +195,17 @@
 
             function sendToaDo(x, y, url) {
                 $.ajax({
-                type: "GET",
-                        url: url,
-                        timeout: 100000,
-                        data: "x=" + x + "&y=" + y,
-                        success: function (data) {
+                    type: "GET",
+                    url: url,
+                    timeout: 100000,
+                    data: "x=" + x + "&y=" + y,
+                    success: function (data) {
                         console.log("SUCCESS: ", data);
-                        },
-                        error: function (e) {
+                    },
+                    error: function (e) {
                         console.log("ERROR: ", e);
-                                display(e);
-                        }
+                        display(e);
+                    }
                 });
             }
             //-------------------------------------
@@ -263,12 +264,14 @@
             $("#screen_shot").mousemove(function (e) {
                 var p = $("#screen_shot");
                 var offset = p.offset();
-                x = e.pageX - offset.left;
-                y = e.pageY - offset.top;
+                x = parseInt(e.pageX - offset.left);
+                y = parseInt(e.pageY - offset.top);
+                console.log("x=" + x);
+                console.log("y=" + y);
             }).mouseover();
 
             $("#screen_shot").click(function () {
-                sendToaDo(x,y,"${toado}");
+                sendToaDo(x, y, "${toado}");
             });
         </script>
     </body>
