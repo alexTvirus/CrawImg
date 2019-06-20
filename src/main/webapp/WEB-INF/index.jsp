@@ -121,7 +121,7 @@
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function (frame) {
                     //console.log('Connected: ' + frame);
-                    consolde.log("connected");
+                    console.log("connected");
                     stompClient.subscribe('/auto/getImg', function (greeting) {
                         displayImg(greeting.body);
                     });
