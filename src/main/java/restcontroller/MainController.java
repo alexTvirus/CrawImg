@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Set;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -162,7 +163,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/toado", method = RequestMethod.GET)
-    public String toado1(
+    public String toado(
             @RequestParam(value = "x", required = true) int x,
             @RequestParam(value = "y", required = true) int y) {
         try {
@@ -173,6 +174,31 @@ public class MainController {
                         myAction1 = new Actions(webDriver);
                         myAction1.moveByOffset(x, y).click().build().perform();
                         myAction1.moveByOffset(-x, -y).build().perform();
+                        taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            };
+            startThread.start();
+
+        } catch (Exception e) {
+            return "loi : " + e.getMessage();
+        }
+        return "";
+    }
+
+    @RequestMapping(value = "/sendKey", method = RequestMethod.GET)
+    public String sendKey(
+            @RequestParam(value = "s", required = true) String s) {
+        try {
+            Thread startThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        myAction1 = new Actions(webDriver);
+                        myAction1.sendKeys(s).perform();
+                        //myAction1.sendKeys(Keys.ENTER).build().perform();
                         taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
                     } catch (Exception e) {
                         e.getMessage();
