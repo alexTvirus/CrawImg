@@ -173,7 +173,7 @@ public class MainController {
                         myAction1 = new Actions(webDriver);
                         myAction1.moveByOffset(x, y).click().build().perform();
                         myAction1.moveByOffset(-x, -y).build().perform();
-                        dowloadService.dowloadImgTypeBase64(MainController.webDriver);
+                        taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
                     } catch (Exception e) {
                         e.getMessage();
                     }
