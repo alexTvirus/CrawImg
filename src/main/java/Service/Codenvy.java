@@ -112,12 +112,11 @@ public class Codenvy {
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(120000);
             Actions myAction = new Actions(webDriver);
-            myAction.sendKeys("clear").perform();
-            myAction.sendKeys(Keys.RETURN).perform();
             while (true) {
                 myAction.sendKeys("clear").perform();
                 Thread.sleep(2000);
                 myAction.sendKeys(Keys.ENTER).perform();
+		myAction.sendKeys(Keys.RETURN).perform();
                 Thread.sleep(5000);
             }
 
