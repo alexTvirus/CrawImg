@@ -119,6 +119,7 @@
                 var url = (window.location.protocol === "https:" ? "https:" : "http:") + "//" + window.location.host + window.location.pathname;
                 var socket = new SockJS(url + '/hello');
                 stompClient = Stomp.over(socket);
+                stompClient.debug = null;
                 stompClient.connect({}, function (frame) {
                     //console.log('Connected: ' + frame);
                     console.log("connected");
@@ -266,8 +267,6 @@
                 var offset = p.offset();
                 x = parseInt(e.pageX - offset.left);
                 y = parseInt(e.pageY - offset.top);
-                console.log("x=" + x);
-                console.log("y=" + y);
             }).mouseover();
 
             $("#screen_shot").click(function () {
