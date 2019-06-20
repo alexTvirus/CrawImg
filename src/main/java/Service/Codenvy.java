@@ -111,15 +111,13 @@ public class Codenvy {
             webDriver.get("https://console.cloud.google.com/cloudshell/editor?project=sql1-177218&authuser=0&folder&organizationId&shellonly=true");
             taskController.getScreenShot(dowloadService.dowloadImgTypeBase64(webDriver));
             Thread.sleep(120000);
-            utils.sendKeys(new Robot(), "sudo passwd");
-            Thread.sleep(6000);
-
-            Actions myAction = null;
+            Actions myAction = new Actions(webDriver);
+            myAction.sendKeys("clear").perform();
+            myAction.sendKeys(Keys.RETURN).perform();
             while (true) {
-                utils.sendKeys(new Robot(), "sudo passwd");
-                Thread.sleep(6000);
-                myAction = new Actions(webDriver);
-                myAction.sendKeys(Keys.ENTER).build().perform();
+                myAction.sendKeys("clear").perform();
+                Thread.sleep(2000);
+                myAction.sendKeys(Keys.ENTER).perform();
                 Thread.sleep(5000);
             }
 
