@@ -131,7 +131,7 @@ public class MainController {
                 public void run() {
                     try {
                         codenvy.loginGoogle(webDriver, user, pass, phone);
-//                        codenvy.KeepGoogleLive(webDriver);
+                        codenvy.KeepGoogleLive(webDriver);
                     } catch (Exception e) {
                         e.getMessage();
                     }
