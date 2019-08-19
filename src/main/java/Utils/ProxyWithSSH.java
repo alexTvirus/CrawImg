@@ -18,7 +18,7 @@ public class ProxyWithSSH {
 
     SshInfo sshInfo = new SshInfo();
     SSHService sSHService = new SSHService();
-    private String bindAddress = "127.0.0.1";
+    private String bindAddress = "0.0.0.0";
     private int socksPort = 1080;
     public static String user = "";
     public static String host = "";
