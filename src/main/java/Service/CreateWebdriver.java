@@ -3,6 +3,7 @@ package Service;
 import Bean.SystemConfig;
 import java.io.File;
 import java.net.InetAddress;
+import java.util.Collections;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -62,12 +63,17 @@ public class CreateWebdriver {
                     ChromeOptions options = new ChromeOptions();
                     options.setBinary(binaryGoogle);
 //                    String str_proxy_linux = "--proxy-server=socks4://"+InetAddress.getLocalHost().getHostAddress()+":1080";
-                    String str_proxy_linux = "--proxy-server=socks4://127.0.0.1:1080";
-                    options.addArguments(str_proxy_linux);
+                    // String str_proxy_linux = "--proxy-server=socks4://127.0.0.1:1080";
+                    //  options.addArguments(str_proxy_linux);
+//                    options.addArguments("user-data-dir=/app/profile");
                     options.addArguments("disable-infobars");
                     options.addArguments("--start-maximized");
-                    options.addArguments("--headless");
-
+                    options.addArguments("chrome.switches", "--disable-extensions");
+//                    options.addArguments("--disable-web-security");
+//                    options.addArguments("--allow-running-insecure-content");
+                    options.addArguments("--user-agent=Mozilla/5.0 (Linux; Android 6.0; HTC One M9 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36");
+//                    options.setExperimentalOption("useAutomationExtension", false);
+//                    options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
                     webDriver = new ChromeDriver(options);
                     break;
                 case "Windows":
