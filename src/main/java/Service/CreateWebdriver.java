@@ -65,11 +65,11 @@ public class CreateWebdriver {
 //                    String str_proxy_linux = "--proxy-server=socks4://"+InetAddress.getLocalHost().getHostAddress()+":1080";
                     // String str_proxy_linux = "--proxy-server=socks4://127.0.0.1:1080";
                     //  options.addArguments(str_proxy_linux);
-                    options.addArguments("user-data-dir=/app/profile/Default");
+//                    options.addArguments("user-data-dir=/app/profile/");
                     options.addArguments("disable-infobars");
                     options.addArguments("--start-maximized");
 //                    options.addArguments("chrome.switches", "--disable-extensions");
-					options.addArguments("--headless");
+			//options.addArguments("--headless");
 //                    options.addArguments("--disable-web-security");
 //                    options.addArguments("--allow-running-insecure-content");
                     options.addArguments("--user-agent=Mozilla/5.0 (Linux; Android 6.0; HTC One M9 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36");
@@ -85,6 +85,7 @@ public class CreateWebdriver {
 //                    optionswindow.addArguments(str_proxy_windows);
                     optionswindow.addArguments("disable-infobars");
                     optionswindow.addArguments("--start-maximized");
+                    optionswindow.addArguments("user-data-dir=E:\\Soft\\gg-Copy\\Data\\profile");
 //                    optionswindow.addArguments("--headless");
 
                     try {
