@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="JavaFXApplication1.jnlp">
+  <information>
+    <title>JavaFXApplication1</title>
+    <vendor>Alex</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="JavaFXApplication1.jar" size="26800" download="eager" />
+    <jar href="lib\client-combined-3.13.0.jar" size="1517459" download="eager" />
+    <jar href="lib\commons-codec-1.11.jar" size="335042" download="eager" />
+    <jar href="lib\commons-lang3-3.9.jar" size="503880" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="lib\fluent-hc-4.5.9.jar" size="31544" download="eager" />
+    <jar href="lib\httpclient-4.5.9.jar" size="774384" download="eager" />
+    <jar href="lib\httpclient-cache-4.5.9.jar" size="164194" download="eager" />
+    <jar href="lib\httpclient-osgi-4.5.9.jar" size="1364962" download="eager" />
+    <jar href="lib\httpclient-win-4.5.9.jar" size="17846" download="eager" />
+    <jar href="lib\httpcore-4.4.11.jar" size="326874" download="eager" />
+    <jar href="lib\httpmime-4.5.9.jar" size="41787" download="eager" />
+    <jar href="lib\jna-4.5.2.jar" size="1484022" download="eager" />
+    <jar href="lib\jna-platform-4.5.2.jar" size="2327597" download="eager" />
+    <jar href="lib\jsoup-1.12.1.jar" size="397112" download="eager" />
+    <jar href="lib\selenium-firefox-driver-3.4.0.jar" size="807407" download="eager" />
+    <jar href="lib\selenium-server-standalone-3.13.0.jar" size="23460830" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="JavaFXApplication1" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="Main"  name="JavaFXApplication1" />
+  <update check="always"/>
+</jnlp>
