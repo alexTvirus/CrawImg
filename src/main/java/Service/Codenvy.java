@@ -61,12 +61,12 @@ public class Codenvy {
         } catch (Exception e) {
             if (e instanceof PageLoadTooLongException) {
                 taskController.reportError("Page load too long please submit again");
-                webDriver.quit();
-                MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+//                webDriver.quit();
+//                MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
             } else {
                 taskController.reportError("exception" + e.getMessage());
-                webDriver.quit();
-                MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
+//                webDriver.quit();
+//                MainController.webDriver = createWebdriver.getGoogle(Constant.binaryGoogleHeroku);
             }
 
         }

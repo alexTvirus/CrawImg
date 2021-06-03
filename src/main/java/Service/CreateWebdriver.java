@@ -75,6 +75,7 @@ public class CreateWebdriver {
                     options.addArguments("--user-agent=Mozilla/5.0 (Linux; Android 6.0; HTC One M9 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36");
 //                    options.setExperimentalOption("useAutomationExtension", false);
 //                    options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+                    options.setExperimentalOption("debuggerAddress", "localhost:9222");
                     webDriver = new ChromeDriver(options);
                     break;
                 case "Windows":
